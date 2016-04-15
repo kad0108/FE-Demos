@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<body>
+	<canvas id="trails" style="border:1px solid;" width="400" height="500"></canvas>
+
+	<script>
+		function createCanopyPath(context){
+			context.beginPath();
+			context.moveTo(-25, -50);
+			context.lineTo(-10, -80);
+			context.lineTo(-20, -80)
+			context.lineTo(-5, -110);
+			context.lineTo(-15, -110);
+			//树的顶点
+			context.lineTo(0, -140);
+
+			context.lineTo(15, -110);
+			context.lineTo(5, -110);
+			context.lineTo(20, -80);
+			context.lineTo(10, -80);
+			context.lineTo(25, -50);
+			//链接起点，闭合路径
+			context.closePath();
+		}
+		function drawTree(context){
+			//创建用作树干纹理的三阶水平渐变
+
+			context.save();
+			//X值随着Y值增加，借助拉伸变换，可以创建一棵用作阴影的倾斜的树，应用了变换以后所有坐标都和矩阵相乘
+			context.transform(1, 0, -0.5, 1, 0, 0);
+			//Y轴方向将阴影的高度压缩为原来的60%
+			context.scale(1, 0.6);
+			//使用透明度为20%的黑色填充树干
+			context.fillStyle = "rgba(0, 0, 0, 0.2)";
+			context.fillRect(-5, -50, 10, 50);
+			//使用已有的阴影效果重新绘制树
+			createCanopyPath(context);
+			context.fill();
+			context.restore();
+
+			var trunkGradient = context.createLinearGradient(-5, -50, 5, -50);
+			//树干左侧边缘颜色
+			trunkGradient.addColorStop(0, "#663300");
+			//树干中间偏左位置颜色
+			trunkGradient.addColorStop(0.4, "#996600");
+			//树干右侧边缘颜色
+			trunkGradient.addColorStop(1, "#552200");
+			//用渐变色填充树干
+			context.fillStyle = trunkGradient;
+			context.fillRect(-5, -50, 10, 50);//x,y位置参数和宽高大小参数
+
+			//创建垂直渐变，以用作树冠在树干上的投影
+			var canopyShadow = context.createLinearGradient(0, -50, 0, 0);
+			//投影渐变的起点是透明度设为50%的黑色
+			canopyShadow.addColorStop(0, 'rgba(0, 0, 0, 0.5)');
+			//方向垂直向下，渐变色在很短的距离内渐变至完全透明
+			canopyShadow.addColorStop(0.2, 'rgba(0, 0, 0, 0.0)');
+			context.fillStyle = canopyShadow;
+			context.fillRect(-5, -50, 10, 50);
+
+			//创建树冠的路径
+			createCanopyPath(context);
+			//绘制图形样式
+			context.lineWidth = 4;
+			context.lineJoin = "round";//平滑路径的接合点
+			context.strokeStyle = "##663300";
+			context.stroke();
+
+			context.fillStyle = "#339900";
+			context.fill();
+
+		}
+		function drawTrails(){
+			var canvas = document.getElementById("trails");
+			var context = canvas.getContext("2d");
+
+			/**绘制文本**/
+			context.save();
+			//文字阴影
+			context.shadowColor = "rgba(0, 0, 0, 0.2)";
+			//阴影向右上移动
+			context.shadowOffsetX = 15;
+			context.shadowOffsetY = -10;
+			//轻微模糊阴影
+			context.shadowBlur = 2;
+
+			context.font = "60px impact";
+			context.fillStyle = "#996600";
+			context.textAlign = "center";
+			context.fillText("Happy KAD!", 200, 60, 400);
+
+			context.restore();
+
+			
+
+			/**绘制树**/
+			context.save();
+			context.translate(130, 250);
+			drawTree(context);
+			context.restore();
+
+			/**绘制放大的树**/
+			context.save();
+			context.translate(260, 500);
+			context.scale(2, 2);
+			drawTree(context);
+			context.restore();
+
+
+			/**绘制林荫小路**/
+			context.save();
+			context.translate(-10, 350);
+			context.beginPath();
+			/*quadraticCurveTo二次曲线函数带有(x,y)两组参数，
+			第一组是控制点，作用相当于对曲线产生一个拉力，改变曲线的曲率，
+			第二组是曲线的终点*/
+			//第一条曲线向右上方弯曲
+			context.moveTo(0, 0);
+			context.quadraticCurveTo(170, -50, 260, -190);
+			//第二条曲线向右下方弯曲
+			context.quadraticCurveTo(310, -250, 410, -250);
+			context.strokeStyle = "#663300";
+			context.lineWidth = 20;
+			context.stroke();
+			context.restore();
+
+		}
+		window.addEventListener("load", drawTrails, true);
+	</script>
+</body>
+</html>

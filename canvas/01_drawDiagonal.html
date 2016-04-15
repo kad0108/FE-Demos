@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<body>
+	<canvas id="diagonal" style="border:1px solid;" width="200" height="200">Update your brower to enjoy canvas!</canvas>
+	<div id="support"></div>
+
+	<script>
+		function drawDiagonal(){
+			//获取canvas元素及其上下文，传入希望使用的canvas类型
+			var canvas = document.getElementById("diagonal");
+			var context = canvas.getContext("2d");
+			//用绝对坐标来创建路径
+			context.beginPath();
+			context.moveTo(70, 140);
+			context.lineTo(140, 70);
+			//线条绘制
+			context.stroke();
+		}
+		//变换绘制图像
+		function drawDiagonal(){
+			var canvas = document.getElementById("diagonal");
+			var context = canvas.getContext("2d");
+			//保存当前绘图状态,变换前保存context状态方便以后恢复
+			context.save();
+			//向右下方移动绘图上下文
+			context.translate(70, 140);
+			//以原点为起点，绘制与前面相同的线段
+			context.beginPath();
+			context.moveTo(0, 0);
+			context.lineTo(70, -70);
+			context.stroke();
+			//恢复原有的绘图状态
+			context.restore();
+		}
+		//监测浏览器支持情况
+		try{
+			document.createElement("canvas").getContext("2d");
+			document.getElementById("support").innerHTML = "HTML5 Canvas is supported in your browser.";
+		}catch(e){
+			document.getElementById("support").innerHTML = "HTML5 Canvas is not supported in your browser.";
+		}
+		window.addEventListener("load", drawDiagonal, true);
+	</script>
+</body>
+</html>
