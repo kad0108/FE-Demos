@@ -7,7 +7,7 @@ function getLocation() {
 	if (navigator.geolocation) { 
 	//若支持地理位置获取,成功调用showPosition(),失败调用showError 
 	// alert("正在努力获取位置..."); 
-		var config = { enableHighAccuracy: true, timeout: 5000, maximumAge: 30000 }; 
+		var config = { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }; 
 		navigator.geolocation.getCurrentPosition(showPosition, showError, config); 
 	} else { 
 	//alert("Geolocation is not supported by this browser."); 
