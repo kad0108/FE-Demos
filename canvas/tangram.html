@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+	<style>
+		#canvas{
+			border:1px solid #aaa;
+			margin:10px auto;
+			display:block;
+		}
+	</style>
+</head>
+<body>
+	<div id="support">还可实现七巧板小游戏，鼠标可拖动每一块，进而拼出不同的图案。鼠标是否点选在某个小块里使用碰撞检测。</div>
+	<canvas id="canvas">Update your brower to enjoy canvas!</canvas>
+	
+	<script src="../base.js"></script>
+	<script>
+		var tangram = [
+			{p: [{x:0, y:0}, {x:800, y:0}, {x:400, y:400}], color:"#caff67"},
+			{p: [{x:0, y:0}, {x:400, y:400}, {x:0, y:800}], color:"#67becf"},
+			{p: [{x:800, y:0}, {x:800, y:400}, {x:600, y:600}, {x:600,y:200}], color:"#cf3d61"},
+			{p: [{x:600, y:200}, {x:600, y:600}, {x:400, y:400}], color:"#f9f51a"},
+			{p: [{x:400, y:400}, {x:600, y:600}, {x:400, y:800}, {x:200, y:600}], color:"#a594c0"},
+			{p: [{x:200, y:600}, {x:400, y:800}, {x:0, y:800}], color:"#fa8ecc"},
+			{p: [{x:800, y:400}, {x:800, y:800}, {x:400, y:800}], color:"#f6ca29"}
+		]
+
+		function draw(line, context){
+			context.beginPath();
+			context.moveTo(line.p[0].x, line.p[0].y);
+			for(var i = 1; i < line.p.length; i++){
+				context.lineTo(line.p[i].x, line.p[i].y);
+			}
+			context.closePath();
+			context.fillStyle = line.color;
+			context.fill();
+
+			context.strkeStyle = "black";
+			context.lineWidth = 3;
+			context.stroke();
+		}
+
+		window.onload = function(){
+			var canvas = $("canvas");
+			canvas.width = 800;
+			canvas.height = 800;
+			var context = canvas.getContext("2d");
+			for(var i = 0; i < tangram.length; i++){
+				draw(tangram[i], context);
+			}
+		}
+	</script>
+</body>
+</html>

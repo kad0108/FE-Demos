@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Collision</title>
+	
+	<style>
+		#canvas{
+			border:1px solid #aaa;
+			margin:30px auto;
+			display:block;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas">Update your brower to enjoy canvas!</canvas>
+	<script src="../base.js"></script>
+	<script>
+		var WINDOW_WIDTH = 500;
+		var WINDOW_HEIGHT = 300;
+		var ball = {x:512, y:100, r:10, g:4, vx:-10, vy:0, color:"#005588"};
+
+		window.onload = function(){
+			var canvas = $("canvas");
+			canvas.width = WINDOW_WIDTH;
+			canvas.height = WINDOW_HEIGHT;
+			var context = canvas.getContext("2d");
+			var timer = setInterval(function(){
+				render(context);
+				update();
+			}, 50);
+		}
+
+		
+		function render(context){
+			context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+			context.fillStyle = ball.color;
+			context.beginPath();
+			context.arc(ball.x, ball.y, ball.r, 0, 2*Math.PI);
+			context.closePath();
+			context.fill();
+		}
+
+		function update(){
+			ball.x += ball.vx;
+			ball.y += ball.vy;
+			ball.vy += ball.g;
+			if(ball.y <= 0 + ball.r){
+				ball.y = ball.r;
+				ball.vy = -ball.vy*0.5;
+			}
+			if(ball.y >= WINDOW_HEIGHT - ball.r){
+				ball.y = WINDOW_HEIGHT - ball.r;
+				ball.vy = -ball.vy*0.5;
+			}
+			// if(ball.x <= 0 + ball.r){
+			// 	ball.x = ball.r;
+			// 	ball.vx = -ball.vx*0.5;
+			// }
+			// if(ball.x >= WINDOW_WIDTH - ball.r){
+			// 	ball.x = WINDOW_WIDTH - ball.r;
+			// 	ball.vx = -ball.vx*0.5;
+			// }
+		}
+	</script>
+</body>
+</html>
