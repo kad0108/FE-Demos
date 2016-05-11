@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>LocalStorage</title>
+	<style>
+		*{
+			font-family: "Microsoft YaHei";
+			margin: 0;
+			padding: 0;
+			box-sizing:border-box;
+		}
+		body{
+			background-color: lightgrey;
+			padding: 30px;
+		}
+		#add_btn{
+			padding: 5px;
+			border-radius: 5px;
+			border:1px solid transparent;
+			background-color: #337ab7;
+			color: #fff;
+		}
+		#add_btn:hover{
+			background-color: #286090;
+		}
+		#clear_btn{
+			padding: 5px;
+			background-color: #d9534f;
+			border:1px solid transparent;
+			color: white;
+			border-radius: 5px;
+		}
+		#clear_btn:hover{
+			background-color: #c9302c;
+		}
+		select{
+			line-height: 28px;
+			height: 28px;
+			font-size: 16px;
+			padding: 2px;
+			border-radius: 5px;
+		}
+		input[type=text]{
+			line-height: 25px;
+			width: 200px;
+		}
+		ul{
+			padding: 20px;
+			list-style: none;
+			overflow: hidden;
+			display: flex;
+			justify-content:flex-start;
+			align-items:flex-end;
+		}
+		li{
+			color: white;
+			/*font-weight: bold;*/
+			margin: 20px;
+			width: 200px;
+			padding: 10px;
+			height: 200px;
+			font-size: 20px;
+			box-shadow: 5px 5px 5px grey;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<label for="note_color">Color:</label>
+		<select id="note_color">
+			<option value="lightblue">lightblue</option>
+			<option value="green">green</option>
+			<option value="purple">purple</option>
+			<option value="pink">pink</option>
+		</select>
+		<label for="note_text">Text:</label>
+		<input type="text" id="note_text">
+		<button type="button" id="add_btn">Add Sticky Note</button>
+		<button type="button" id="clear_btn">Clear All Sticky Note</button>
+	</form>
+	<ul id="stickies"></ul>
+
+	<script src="../base.js"></script>
+	<script>
+		window.onload = init;
+		function init(){
+			var stickiesArray = getStickiesArray();
+			for(var i = 0; i < stickiesArray.length; i++){
+				var key = stickiesArray[i];
+				var value = JSON.parse(localStorage[key]);
+				addStickyToDOM(key, value);
+			}
+			addEvent($("add_btn"), "click", function(){
+				createSticky();
+			});
+			addEvent($("stickies"), "click", function(event){
+				var event = event || window.event;
+				var target = event.target || event.srcElement;
+				if(target && target.tagName.toUpperCase() === "LI"){
+					key = target.id;
+					deleteSticky(key);
+				}
+			});
+			addEvent($("clear_btn"), "click", function(){
+				localStorage.clear();
+				var stickiesArray = getStickiesArray();
+				for(var i = 0; i < stickiesArray.length; i++){
+					var key = stickiesArray[i];
+					var value = JSON.parse(localStorage[key]);
+					addStickyToDOM(key, value);
+				}
+			});
+		}
+
+		function createSticky(){
+			 var value = $("note_text").value;
+			 var curtime = new Date();
+			 var key = "sticky_" + curtime.getTime();//unique key
+			 var stickiesArray = getStickiesArray();
+			 stickiesArray.push(key);
+			 localStorage.setItem("stickiesArray", JSON.stringify(stickiesArray));
+			 var stickyObj = {
+			 	"value": value,
+			 	"color": $("note_color").value
+			 };
+			 localStorage.setItem(key, JSON.stringify(stickyObj));
+			 addStickyToDOM(key, stickyObj);
+		}
+
+		function getStickiesArray(){
+			var stickiesArray = localStorage.getItem("stickiesArray");
+			if(!stickiesArray){
+				stickiesArray = [];
+				localStorage.setItem("stickiesArray", JSON.stringify(stickiesArray));
+			}else{
+				stickiesArray = JSON.parse(stickiesArray);
+			}
+			return stickiesArray;
+		}
+
+		function addStickyToDOM(key, stickyObj){
+			var stickies = $("stickies");
+			var li = document.createElement("li");
+			li.setAttribute("class", "sticky");
+			li.id = key;
+			li.setAttribute("title", "click to delete");
+			li.style.transform = "rotate("+ Math.random()*5 +"deg)";
+			li.style.backgroundColor = stickyObj.color;
+			li.innerHTML = stickyObj.value;
+			stickies.appendChild(li);
+		}
+
+		function deleteSticky(key){
+			localStorage.removeItem(key);
+			var stickiesArray = getStickiesArray();
+			if(stickiesArray){
+				for(var i = 0; i < stickiesArray.length; i++){
+					if(stickiesArray[i] == key){
+						stickiesArray.splice(i, 1);
+					}
+				}
+				localStorage.setItem("stickiesArray", JSON.stringify(stickiesArray));
+				removeStickyFromDOM(key);
+			}
+			
+		}
+
+		function removeStickyFromDOM(key){
+			var sticky = $(key);
+			sticky.parentNode.removeChild(sticky);
+		}
+	</script>
+</body>
+</html>
