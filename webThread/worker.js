@@ -1,6 +1,7 @@
 onmessage = sayCheese;
 function sayCheese(event){
-	if(event.data == "say"){
+	console.log("worker", event);
+	if(event.data == "Say"){
 		postMessage("Cheese");
 	}
 }
