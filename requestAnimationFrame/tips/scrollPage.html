@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ScrollPage</title>
+	<style>
+		button{
+			padding: 5px;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+	<p><button type="button" id="scrollTop">scroll~~</button></p>
+	<script src="../../base.js"></script>
+	<script>
+		for(var i = 0; i <= 20; i++){
+			if(i == 20){
+				var p = document.createElement("p");
+				var btn = document.createElement("button");
+				btn.id = "scrollBot";
+				btn.innerHTML = "scroll~~";
+				btn.type = "button";
+				p.appendChild(btn);
+				document.body.appendChild(p);
+			}else{
+				var img = new Image();
+				img.src = "hp.jpeg";
+				img.alt = "Harry Potter";
+				document.body.appendChild(img);
+			}
+		}
+		
+		/*
+		* 貌似 document.body.scrollTop 适用于 chrome， 测试了firefox和IE都是 document.documentElement.scrollTop 才有效。
+		*/
+		addEvent($("scrollTop"), "click", function(){
+			var nowScroll = document.body.scrollTop;
+			var flag = "down";
+			var funScroll = function(){
+				var top = document.body.scrollTop;
+				// var top = document.documentElement.scrollTop;
+				if(flag == "down"){
+					top += 20;
+					if(top >= document.body.scrollHeight - document.documentElement.clientHeight){
+						top = document.body.scrollHeight;
+						flag = "up";
+					}
+				}else if(flag == "up"){
+					top -= 20;
+					if(top <= nowScroll){
+						top = nowScroll;
+						flag = "stop";
+					}
+				}else{
+					return;
+				}
+				document.body.scrollTop = top;
+				// document.documentElement.scrollTop = top;
+				requestAnimationFrame(funScroll);
+			}
+			funScroll();
+		});
+
+
+		addEvent($("scrollBot"), "click", function() {
+			var nowScroll = document.body.scrollTop;
+			var flag = "up";
+			var funScroll = function() {
+				var top = document.body.scrollTop;
+				if (flag == "up") {
+					top -= 20;
+					if (top <=0) {
+						top = 0; flag = "down";
+					}
+				} else if (flag == "down") {
+					top += 20;
+					if(top >= nowScroll) {
+						top = nowScroll;  flag = "stop";
+					}
+				} else {
+					return; 
+				}
+				document.body.scrollTop = top;
+				requestAnimationFrame(funScroll);
+			};
+			if (nowScroll) {
+				funScroll()
+			};	
+		});
+	</script>
+</body>
+</html>
