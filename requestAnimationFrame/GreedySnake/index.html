@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Greedy Snake</title>
+	<style>
+		canvas{
+			background-color: lightyellow;
+			border:1px solid yellow;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="400" height="300"></canvas>
+	<button type="button" id="btn">stop</button>
+	<script src="../../base.js"></script>
+	<script>
+		var width = 400, height = 300;
+		var food = {
+			x: 0,
+			y: 0
+		};
+		var snake = {
+			x: 10,
+			y: 10,
+			speed: 100,
+			size: 10,//单元大小
+			len: 10,//蛇身长
+			dir: 39, //37|left, 38|up, 39|right, 40|down
+			map: [],
+			score: 0
+		};
+		var canvas = $("canvas");
+		var context = canvas.getContext("2d");
+		var timer;
+		function init(){
+			addEvent(document, "keydown", function(e){
+				var dir = {37:39, 38:40, 39:37, 40:38}[e.keyCode];
+				if(snake.dir != dir) snake.dir = e.keyCode;
+			});
+			addEvent($("btn"), "click", function(){
+				if(this.innerHTML = "stop"){
+					clearInterval(timer);
+					this.innerHTML = "start";
+				}else if(this.innerHTML = "start"){
+
+				}
+			});
+			randomFood();
+			timer = setInterval(snakeMove, snake.speed);
+		}
+
+		function snakeMove(){
+			
+			
+			switch(snake.dir){
+				case 37:
+					snake.x -= snake.size;
+					break;
+				case 38:
+					snake.y -= snake.size;
+					break;
+				case 39:
+					snake.x += snake.size;
+					break;
+				case 40:
+					snake.y += snake.size;
+			}
+			if(snake.x >= width || snake.x < 0 || snake.y >= height || snake.y < 0){
+				alert("游戏结束： " + snake.score + "分 撞到墙啦~");
+				window.location.reload();
+			}
+
+			for(var i = 0; i < snake.map.length; i++){
+				if(parseInt(snake.map[i].x) == snake.x && parseInt(snake.map[i].y) == snake.y){
+					alert("游戏结束： " + snake.score + "分 撞到自己啦~");
+					window.location.reload();
+				}
+			}
+			
+			
+			if(snake.map.length > snake.len){
+				var delPos = snake.map.shift();
+				context.clearRect(delPos.x, delPos.y, snake.size, snake.size);
+			}
+
+			snake.map.push({'x': snake.x, 'y': snake.y});
+			context.fillStyle = "#006699";
+			context.fillRect(snake.x, snake.y, snake.size, snake.size);
+
+			if(snake.x == food.x && snake.y == food.y){
+				console.log("eat");
+				randomFood();
+				snake.len++;
+				snake.score++;
+			}
+		}
+		function randomFood(){
+			food.x = parseInt(Math.random() * (width/10)) * 10;
+			food.y = parseInt(Math.random() * (height/10)) * 10;
+			context.fillStyle = "#000";
+			context.fillRect(food.x, food.y, 10, 10);
+		}
+		window.onload = init;
+	</script>
+</body>
+</html>
