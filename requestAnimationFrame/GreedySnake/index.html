@@ -8,11 +8,34 @@
 			background-color: lightyellow;
 			border:1px solid yellow;
 		}
+		.btn{
+			display: inline-block;
+			padding: 6px 12px;
+			text-align: center;
+			cursor: pointer;
+			border-radius: 4px;
+			border:1px solid transparent;
+			background-color: #337ab7;
+			color: #fff;
+			font-size: 14px;
+		}
+		.btn:hover{
+			background-color: #286090;
+		}
+		.deco{
+			margin-left: 30px;
+		}
 	</style>
 </head>
 <body>
 	<canvas id="canvas" width="400" height="300"></canvas>
-	<button type="button" id="btn">stop</button>
+	<p><button type="button" id="btn" class="btn" style="background-color: purple">start</button></p>
+	<p><button type="button" id="up" class="btn deco">up</button></p>
+	<p>
+		<button type="button" id="left" class="btn">left</button>
+		<button type="button" id="right" class="btn" style="margin-left:10px">right</button>
+	</p>
+	<p><button type="button" id="down" class="btn deco">down</button></p>
 	<script src="../../base.js"></script>
 	<script>
 		var width = 400, height = 300;
@@ -34,20 +57,40 @@
 		var context = canvas.getContext("2d");
 		var timer;
 		function init(){
+			addEvent($("up"), "click", function(){
+				var up = 38;
+				var dir = {37:39, 38:40, 39:37, 40:38}[up];
+				if(snake.dir != dir && dir != undefined) snake.dir = up;
+			})
+			addEvent($("down"), "click", function(){
+				var down = 40;
+				var dir = {37:39, 38:40, 39:37, 40:38}[down];
+				if(snake.dir != dir && dir != undefined) snake.dir = down;
+			})
+			addEvent($("left"), "click", function(){
+				var left = 37;
+				var dir = {37:39, 38:40, 39:37, 40:38}[left];
+				if(snake.dir != dir && dir != undefined) snake.dir = left;
+			})
+			addEvent($("right"), "click", function(){
+				var right = 39;
+				var dir = {37:39, 38:40, 39:37, 40:38}[right];
+				if(snake.dir != dir && dir != undefined) snake.dir = right;
+			})
 			addEvent(document, "keydown", function(e){
 				var dir = {37:39, 38:40, 39:37, 40:38}[e.keyCode];
-				if(snake.dir != dir) snake.dir = e.keyCode;
+				if(snake.dir != dir && dir != undefined) snake.dir = e.keyCode;
 			});
 			addEvent($("btn"), "click", function(){
-				if(this.innerHTML = "stop"){
+				if(this.innerHTML == "stop"){
 					clearInterval(timer);
 					this.innerHTML = "start";
-				}else if(this.innerHTML = "start"){
-
+				}else if(this.innerHTML == "start"){
+					timer = setInterval(snakeMove, snake.speed);
+					this.innerHTML = "stop";
 				}
 			});
 			randomFood();
-			timer = setInterval(snakeMove, snake.speed);
 		}
 
 		function snakeMove(){
