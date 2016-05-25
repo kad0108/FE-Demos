@@ -38,6 +38,9 @@
 	<p><button type="button" id="down" class="btn deco">down</button></p>
 	<script src="../../base.js"></script>
 	<script>
+		if (navigator.userAgent.match(/.*Mobile.*/)) { // 来自手机
+    		alert("Hello");
+		}
 		var width = 400, height = 300;
 		var food = {
 			x: 0,
