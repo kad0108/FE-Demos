@@ -141,8 +141,8 @@ addEvent($("level"), "change", function(){
 function init(){
 
 	if(navigator.userAgent.match(/Mobile/)){
-		WIDTH = window.screen.availWidth;
-		HEIGHT = window.screen.availHeight / 2;
+		WIDTH = document.body.clientWidth;
+		HEIGHT = document.body.clientHeight / 2;
 		alert(WIDTH);
 		alert(HEIGHT);
 
@@ -168,6 +168,8 @@ function init(){
 
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
+	alert(canvas.width);
+	alert(canvas.height);
 	context.clearRect(0, 0, WIDTH, HEIGHT);
 	drawSnake();
 	drawFood();
