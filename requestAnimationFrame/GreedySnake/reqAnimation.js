@@ -143,8 +143,6 @@ function init(){
 	if(navigator.userAgent.match(/Mobile/)){
 		WIDTH = document.body.clientWidth;
 		HEIGHT = document.body.clientHeight;
-		alert(WIDTH);
-		alert(HEIGHT);
 
 		var div = $("wrap");
 		div.innerHTML = "<button type='button' id='start' class='btn' style='background-color: purple'>start</button>"
@@ -154,6 +152,7 @@ function init(){
 		 + "<button type='button' id='down' class='btn'>down</button>";
 
 		addEvent($("up"), "click", function(){
+			alert("KAD:" + this.id);
 			changeDir(1);
 		})
 		addEvent($("down"), "click", function(){
@@ -180,8 +179,6 @@ function init(){
 
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
-	alert(canvas.width);
-	alert(canvas.height);
 	context.clearRect(0, 0, WIDTH, HEIGHT);
 	drawSnake();
 	drawFood();
