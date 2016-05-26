@@ -148,10 +148,13 @@ addEvent($("level"), "change", function(){
 // 		this.innerHTML = "stop";
 // 	}
 // })
+
 function init(){
 	context.clearRect(0, 0, WIDTH, HEIGHT);
 	drawSnake();
 	drawFood();
+	var maxScore = localStorage.getItem("maxScore");
+	if(maxScore != undefined) $("maxScore").innerHTML = maxScore;
 }
 
 var cot = 0;
@@ -162,11 +165,18 @@ var main = function(){
 	if(cot % level == 0){
 		move();
 	}
-	init();
+	context.clearRect(0, 0, WIDTH, HEIGHT);
+	drawSnake();
+	drawFood();
 	if(stop){
 		cancelRequestAnimationFrame(timer);
 		var flag = confirm("游戏结束： " + score + "分\n\n重新开始？");
-		if(flag) window.location.reload();
+		if(flag) {
+			var maxScore = localStorage.getItem("maxScore");
+			maxScore = Math.max(score, maxScore);
+			localStorage.setItem("maxScore", maxScore);
+			window.location.reload();
+		}
 		else return;
 	}else{
 		timer = requestAnimationFrame(main);

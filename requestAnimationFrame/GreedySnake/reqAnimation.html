@@ -25,9 +25,18 @@
 		p{
 			font-size: 16px;
 			color: grey;
+			font-weight: bold;
+		}
+		p span{
+			margin-left:20px;
+			color: black;
 		}
 		select{
 			padding: 3px;
+		}
+		#maxScore{
+			color: red;
+			font-weight: bold;
 		}
 	</style>
 </head>
@@ -39,6 +48,7 @@
 			<option value="5">中级</option>
 			<option value="2">困难</option>
 		</select>
+		<span>目前最高得分:&nbsp;<e id="maxScore">0</e>&nbsp;分</span>
 	</p>
 	<p>注：快来试试空格键~~~</p>
 	<script src="../../base.js"></script>
