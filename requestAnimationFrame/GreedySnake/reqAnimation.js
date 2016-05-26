@@ -139,9 +139,12 @@ addEvent($("level"), "change", function(){
 });
 
 function init(){
+
 	if(navigator.userAgent.match(/Mobile/)){
 		WIDTH = window.screen.availWidth;
 		HEIGHT = window.screen.availHeight / 2;
+		alert(WIDTH);
+		alert(HEIGHT);
 
 		var div = $("wrap");
 		div.innerHTML = "<button type='button' id='up' class='btn'>up</button>"
