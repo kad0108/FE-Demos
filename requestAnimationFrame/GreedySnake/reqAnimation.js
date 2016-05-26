@@ -158,10 +158,10 @@ function init(){
 		HEIGHT = document.body.clientHeight;
 
 		var div = $("wrap");
-		div.innerHTML = "<button type='button' id='up' class='btn'>&uarr;</button>"
-		 + "<button type='button' id='left' class='btn'>&larr;</button>" 
-		 + "<button type='button' id='right' class='btn'>&rarr;</button>"
-		 + "<button type='button' id='down' class='btn'>&darr;</button>";
+		div.innerHTML = "<button type='button' id='up' class='btn bl'>&uarr;</button>"
+		 + "<button type='button' id='left' class='btn bl'>&larr;</button>" 
+		 + "<button type='button' id='right' class='btn bl'>&rarr;</button>"
+		 + "<button type='button' id='down' class='btn bl'>&darr;</button>";
 
 		addEvent($("up"), "click", function(){
 			changeDir(1);
