@@ -146,13 +146,12 @@ function init(){
 
 		var div = $("wrap");
 		div.innerHTML = "<button type='button' id='start' class='btn' style='background-color: purple'>start</button>"
-		 + "<button type='button' id='up' class='btn'>up</button>"
-		 + "<button type='button' id='left' class='btn'>left</button>" 
-		 + "<button type='button' id='right' class='btn'>right</button>"
-		 + "<button type='button' id='down' class='btn'>down</button>";
+		 + "<button type='button' id='up' class='btn'>&uarr;</button>"
+		 + "<button type='button' id='left' class='btn'>&larr;</button>" 
+		 + "<button type='button' id='right' class='btn'>&rarr;</button>"
+		 + "<button type='button' id='down' class='btn'>&darr;</button>";
 
 		addEvent($("up"), "click", function(){
-			alert("KAD:" + this.id);
 			changeDir(1);
 		})
 		addEvent($("down"), "click", function(){
