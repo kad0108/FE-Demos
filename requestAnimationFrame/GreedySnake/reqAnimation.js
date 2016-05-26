@@ -143,12 +143,12 @@ function init(){
 	if(navigator.userAgent.match(/Mobile/)){
 		WIDTH = document.body.clientWidth;
 		HEIGHT = document.body.clientHeight;
-		SIZE = 20;
 		alert(WIDTH);
 		alert(HEIGHT);
 
 		var div = $("wrap");
-		div.innerHTML = "<button type='button' id='up' class='btn'>up</button>"
+		div.innerHTML = "<button type='button' id='start' class='btn' style='background-color: purple'>start</button>"
+		 + "<button type='button' id='up' class='btn'>up</button>"
 		 + "<button type='button' id='left' class='btn'>left</button>" 
 		 + "<button type='button' id='right' class='btn'>right</button>"
 		 + "<button type='button' id='down' class='btn'>down</button>";
@@ -164,6 +164,17 @@ function init(){
 		})
 		addEvent($("right"), "click", function(){
 			changeDir(2);
+		})
+		addEvent($("start"), "click", function(){
+			if(stop = true){
+				timer = requestAnimationFrame(main);
+				stop = false;
+				this.innerHTML = "stop";
+			}else{
+				cancelAnimationFrame(timer);
+				stop = true;
+				this.innerHTML = "start";
+			}
 		})
 	}
 

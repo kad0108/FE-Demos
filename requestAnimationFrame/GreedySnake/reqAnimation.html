@@ -9,10 +9,6 @@
 			background-color: lightyellow;
 			border:2px dotted grey;
 		}
-		
-		div{
-			line-height: 30px;
-		}
 		span{
 			margin-left:20px;
 			color: black;
@@ -25,9 +21,14 @@
 			font-weight: bold;
 		}
 		@media only screen and (max-width: 768px){
+			#wrap{
+				line-height: 30px;
+			}
+		}
+		@media only screen and (max-width: 768px){
 			.btn{
 				display: inline-block;
-				padding: 50px 50px;
+				padding: 25px 25px;
 				text-align: center;
 				cursor: pointer;
 				border-radius: 10px;
@@ -44,14 +45,14 @@
 </head>
 <body>
 	<canvas id="canvas"></canvas>
-	<div>
+	<p>
 		<select id="level">
 			<option value="10">简单</option>
 			<option value="5" selected>中级</option>
 			<option value="2">困难</option>
 		</select>
 		<span>目前最高得分:&nbsp;<e id="maxScore">0</e>&nbsp;分</span>
-	</div>
+	</p>
 	<div id="wrap">注：快来试试空格键~~~</div>
 	<script src="../../base.js"></script>
 	<script src="reqAnimation.js"></script>
