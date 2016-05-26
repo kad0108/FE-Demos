@@ -13,16 +13,30 @@
 			margin-left:20px;
 			color: black;
 		}
-		select{
-			padding: 3px;
-		}
 		#maxScore{
 			color: red;
 			font-weight: bold;
 		}
-		@media only screen and (max-width: 768px){
+		@media only screen and (min-width: 768px){
 			#wrap{
 				line-height: 30px;
+			}
+			.btn{
+				display: inline-block;
+				padding: 6px 12px;
+				text-align: center;
+				cursor: pointer;
+				border-radius: 4px;
+				border:1px solid transparent;
+				background-color: #337ab7;
+				color: #fff;
+				font-size: 14px;
+			}
+			.btn:hover{
+				background-color: #286090;
+			}
+			select{
+				padding: 5px;
 			}
 		}
 		@media only screen and (max-width: 768px){
@@ -40,6 +54,9 @@
 			.btn:hover{
 				background-color: #286090;
 			}
+			select{
+				padding: 10px;
+			}
 		}
 	</style>
 </head>
@@ -51,6 +68,7 @@
 			<option value="5" selected>中级</option>
 			<option value="2">困难</option>
 		</select>
+		<button type='button' id='start' class='btn' style='background-color: purple'>start</button>
 		<span>目前最高得分:&nbsp;<e id="maxScore">0</e>&nbsp;分</span>
 	</p>
 	<div id="wrap">注：快来试试空格键~~~</div>

@@ -138,6 +138,19 @@ addEvent($("level"), "change", function(){
 	this.blur();
 });
 
+var startbtn = $("start");
+addEvent(startbtn, "click", function(){
+	if(stop == true){
+		timer = requestAnimationFrame(main);
+		stop = false;
+		this.innerHTML = "stop";
+	}else if(stop == false){
+		cancelAnimationFrame(timer);
+		stop = true;
+		this.innerHTML = "start";
+	}
+})
+
 function init(){
 
 	if(navigator.userAgent.match(/Mobile/)){
@@ -145,8 +158,7 @@ function init(){
 		HEIGHT = document.body.clientHeight;
 
 		var div = $("wrap");
-		div.innerHTML = "<button type='button' id='start' class='btn' style='background-color: purple'>start</button>"
-		 + "<button type='button' id='up' class='btn'>&uarr;</button>"
+		div.innerHTML = "<button type='button' id='up' class='btn'>&uarr;</button>"
 		 + "<button type='button' id='left' class='btn'>&larr;</button>" 
 		 + "<button type='button' id='right' class='btn'>&rarr;</button>"
 		 + "<button type='button' id='down' class='btn'>&darr;</button>";
@@ -163,17 +175,7 @@ function init(){
 		addEvent($("right"), "click", function(){
 			changeDir(2);
 		})
-		addEvent($("start"), "click", function(){
-			if(stop == true){
-				timer = requestAnimationFrame(main);
-				stop = false;
-				this.innerHTML = "stop";
-			}else if(stop == false){
-				cancelAnimationFrame(timer);
-				stop = true;
-				this.innerHTML = "start";
-			}
-		})
+		
 		function changeDir(num){
 			var dirHandle = {0: 2, 1: 3, 2: 0, 3: 1}[num];
 			if(snake.dir != dirHandle && dirHandle != undefined) snake.dir = num;
