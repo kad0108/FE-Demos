@@ -165,16 +165,20 @@ function init(){
 			changeDir(2);
 		})
 		addEvent($("start"), "click", function(){
-			if(stop = true){
+			if(stop == true){
 				timer = requestAnimationFrame(main);
 				stop = false;
 				this.innerHTML = "stop";
-			}else{
+			}else if(stop == false){
 				cancelAnimationFrame(timer);
 				stop = true;
 				this.innerHTML = "start";
 			}
 		})
+		function changeDir(num){
+			var dirHandle = {0: 2, 1: 3, 2: 0, 3: 1}[num];
+			if(snake.dir != dirHandle && dirHandle != undefined) snake.dir = num;
+		}
 	}
 
 	canvas.width = WIDTH;
