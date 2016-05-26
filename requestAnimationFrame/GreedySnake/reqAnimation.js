@@ -132,24 +132,38 @@ addEvent(document, "keydown", function(e){
 	}
 });
 
-var level = 10;
+var level = 5;
 addEvent($("level"), "change", function(){
 	level = this.value;
 	this.blur();
 });
-// addEvent($("btn"), "click", function(){
-// 	if(stop = true){
-// 		timer = requestAnimationFrame(main);
-// 		stop = false;
-// 		this.innerHTML = "start";
-// 	}else{
-// 		cancelAnimationFrame(timer);
-// 		stop = true;
-// 		this.innerHTML = "stop";
-// 	}
-// })
 
 function init(){
+	if(navigator.userAgent.match(/Mobile/)){
+		WIDTH = window.screen.availWidth;
+		HEIGHT = window.screen.availHeight / 2;
+
+		var div = $("wrap");
+		div.innerHTML = "<button type='button' id='up' class='btn'>up</button>"
+		 + "<button type='button' id='left' class='btn'>left</button>" 
+		 + "<button type='button' id='right' class='btn'>right</button>"
+		 + "<button type='button' id='down' class='btn'>down</button>";
+
+		addEvent($("up"), "click", function(){
+			changeDir(1);
+		})
+		addEvent($("down"), "click", function(){
+			changeDir(3);
+		})
+		addEvent($("left"), "click", function(){
+			changeDir(0);
+		})
+		addEvent($("right"), "click", function(){
+			changeDir(2);
+		})
+	}
+
+
 	context.clearRect(0, 0, WIDTH, HEIGHT);
 	drawSnake();
 	drawFood();
