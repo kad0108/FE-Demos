@@ -142,7 +142,8 @@ function init(){
 
 	if(navigator.userAgent.match(/Mobile/)){
 		WIDTH = document.body.clientWidth;
-		HEIGHT = document.body.clientHeight / 2;
+		HEIGHT = document.body.clientHeight;
+		SIZE = 20;
 		alert(WIDTH);
 		alert(HEIGHT);
 
