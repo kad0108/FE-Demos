@@ -1,3 +1,7 @@
+/*
+* Implement by setInterval
+*/
+
 var WIDTH = 400, HEIGHT = 300, SIZE = 10;
 var score = 0;
 var canvas = $("canvas");
