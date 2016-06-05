@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSSSprite</title>
+	<style>
+		.container{
+			background: #ebf2fa;
+			width: 300px;
+			border: 1px solid #d4d4d4;
+			position: relative;
+			left: 50%;
+			height: auto;
+			margin-left: -150px;
+		}
+		form{
+			margin: 30px 50px;
+			border-bottom: 2px solid #fff;
+		}
+		ul{
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+		ul li{
+			margin: 20px 0;
+		}
+		input{
+			border: 0;
+			padding-left: 10px; 
+		}
+		ul li input[type="text"], ul li input[type="password"]{
+			height: 32px;
+			line-height: 32px;
+			width: 190px;
+		}
+		.pwd{
+			position: relative;
+			font-size: 13px;
+			font-weight: bold;
+		}
+		.pwd .rig{
+			color: blue;
+			float: right;
+			position: relative;
+			top: 5px;
+			text-decoration: none;
+		}
+		.pwd:before, .pwd:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		button{
+			background: url(img/sp.png);
+			width: 190px;
+			height: 38px;
+			border: 0;
+			cursor: pointer;
+		}
+		.log-1{background-position: 0 0;}
+		.log-2{background-position: 0 -38px; margin: -10px 50px 30px 50px;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<form>
+			<ul>
+				<li><input type="text" placeholder="邮箱/手机号/用户名" /></li>
+				<li><input type="password" placeholder="请输入密码" /></li>
+				<li class="pwd">
+					<span><input type="checkbox" />下次自动登陆</span>
+					<a href="" class="rig">忘记密码？</a>
+				</li>
+				<li>
+					<button type="button" class="log-1"></button>
+				</li>
+			</ul>
+		</form>
+		<button type="button" class="log-2"></button>
+	</div>
+</body>
+</html>
