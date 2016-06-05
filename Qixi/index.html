@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Qixi</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id='content'>
+        <ul class='content-wrap'>
+            <!-- 第一副画面 -->
+            <li> 页面1 </li>
+            <!-- 第二副画面 -->
+            <li> 页面2 </li>
+            <!-- 第三副画面 -->
+            <li> 页面3 </li>
+        </ul>
+        <div id="boy" class="character"></div>
+        <div id="btn" class="button">
+            <button>点击切换页面</button>
+        </div>
+    </div>
+    <script src="../base.js"></script>
+    <script src="swipe.js"></script>
+    <script>
+    	var swipe = Swipe($("content"));
+    	addEvent($("btn"), "click", function(){
+    		swipe.scrollTo(WIDTH, 5000);
+    	})
+    </script>
+</body>
+</html>
