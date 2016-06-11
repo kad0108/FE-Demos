@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Promise VS TransitonEnd</title>
+	<style>
+		div{
+			background-color: purple;
+			width: 200px;
+			height: 100px;
+			text-align: center;
+			margin: 5px;
+			padding: 5px;
+			font-size: 16px;
+			color: white;
+			font-weight: bold;
+		}
+		#block3, #block4, #block5{
+			background-color: darkblue;
+		}
+		button{
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<button id="one">点击测试回调处理</button>
+	<br/>
+	<div id="block1">block1执行动画</div>
+	<div id="block2">block2执行动画</div>
+	<button id="two">点击测试promise处理</button>
+	<br/>
+	<div id="block3">block3执行动画</div>
+	<div id="block4">block4执行动画</div>
+	<div id="block5">block5执行动画</div>
+	<script>
+		function $(id){
+			return document.getElementById(id);
+		}
+		function whichTransitionEvent(){
+			var t;
+			var el = document.createElement("fakeelement");
+			//兼容transitionend事件
+			var transitions = {
+				"transition":"transitionend",
+				"OTrasition":"oTrasitionEnd",
+				"MozTransition":"transitionend",
+				"WebkitTransition":"webkitTransitionEnd"
+			}
+			for(t in transitions){
+				if(el.style[t] != undefined){
+					return transitions[t];
+				}
+			}
+		}
+		//回调处理
+		$("one").addEventListener("click", function(){
+			var block1 = $("block1");
+			block1.style.width = "50%";
+			block1.style.transitionProperty = "width";
+			block1.style.transitionDuration = "2000ms";
+
+			var transitionEvent = whichTransitionEvent();
+			//监听结束事件
+			transitionEvent && block1.addEventListener(transitionEvent, function(){
+				var block2 = $("block2");
+				block2.style.width = "50%";
+				block2.style.transitionProperty = "width";
+				block2.style.transitionDuration = "2000ms";
+			})
+		})
+		//JS原生Promise
+		var transitionPromise = function(elem){
+			return new Promise(function(resolve, reject){
+				elem.style.width = "50%";
+				elem.style.transitionProperty = "width";
+				elem.style.transitionDuration = "2000ms";
+				var transitionEvent = whichTransitionEvent();
+				transitionEvent && elem.addEventListener(transitionEvent, function(){
+					resolve();
+				});
+			})
+		}
+		$("two").onclick = function(){
+			var promise = transitionPromise($("block3"));
+			promise.then(function(){
+				return transitionPromise($("block4"));
+			})
+			.then(function(){
+				return transitionPromise($("block5"));
+			})
+		}
+	</script>
+</body>
+</html>

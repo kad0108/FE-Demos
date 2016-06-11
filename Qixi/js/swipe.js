@@ -1,10 +1,5 @@
-function getStyle(obj){
-	return window.getComputedStyle ? window.getComputedStyle(obj, null) : obj.currentStyle;
-}
-
-var WIDTH, HEIGHT;
-
 /**
+ * 页面滑动
  * [Swipe description]
  * @param {[type]} container [页面容器节点]
  * @param {[type]} options   [参数]
@@ -13,8 +8,8 @@ function Swipe(container){
     //滑动对象
     var swipe = {};
     
-    WIDTH = parseInt(getStyle(container).width.split('px')[0]);
-    HEIGHT = parseInt(getStyle(container).height.split('px')[0]);
+    WIDTH = getWidth(container);
+    HEIGHT = getHeight(container);
 
     var element = container.children[0];
     var slides = element.children;
@@ -30,9 +25,10 @@ function Swipe(container){
     //监控完成与移动
     swipe.scrollTo = function(x, speed){
         //移动父容器，实现相对子容器移动
-        element.style.transitionTimingFunction = "linear";
-        element.style.transitionDuration = speed + "ms";
-        element.style.transform = "translate3d(-" + x * 2 + "px, 0px, 0px)";
+        options = {
+            transform: "translate3d(-" + x + "px, 0px, 0px)"
+        };
+        transition(element, options, speed);
     };
 
     return swipe;
