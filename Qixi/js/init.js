@@ -49,13 +49,16 @@
         lamp.dark();//关灯
     })
     .then(function(){
+        return boy.walkTo(2000, 0.7);
+    })
+    .then(function(){
         //第二次走路完成，开始页面滚动
-        scrollTo(10000, 2);
+        scrollTo(3000, 2);
     })
     /* 第三张背景图动画 */
     .then(function(){
         // 第一次走路到桥底边left,top
-        return boy.walkTo(10000, 0.15);
+        return boy.walkTo(3000, 0.15);
     })
     .then(function() {
         // $boy.removeEventListener(transitionEvent, callback);
