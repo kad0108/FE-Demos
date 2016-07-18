@@ -114,20 +114,20 @@ addEvent(document, "touchmove", function(event){
 })
 addEvent(document, "touchend", function(event){
 	var duration = +new Date - startPos.time;//滑动持续时间
-	if(Number(duration)){
+	if(Number(duration) > 10){
 		if(isScrolling === 0 && slideIndex === 1){//水平滚动
 			//判断是左移还是右移，偏移量大于10时执行
-			if(endPos.x > 10){
+			if(endPos.x < 10){
 				right();
-			}else if(endPos.x < -10){
+			}else if(endPos.x > -10){
 				left();
 			}
 		}
 		if(isScrolling === 1){//垂直移动
-			if(endPos.y > 10){
-				down();
-			}else if(endPos.y < -10){
+			if(endPos.y > 10){//移动端应该是手指向下滑页面向上滑
 				up();
+			}else if(endPos.y < -10){
+				down();
 			}
 		}
 	}

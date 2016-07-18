@@ -91,3 +91,12 @@ html, body{
 	cursor: pointer;
 	display: block;
 }
+
+@media screen and (max-width: 768px){
+	#buttons{
+		right: 15px;
+	}
+	#pre, #next{
+		display: block;
+	}
+}
