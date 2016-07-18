@@ -84,11 +84,13 @@ function right(){
 
 //横向滚动向右按钮
 addEvent($("next"), "click", function(){
+	alert(index, slideIndex);
 	if(slideIndex !== -1) right();
 	alert(index, slideIndex);
 })
 //横向滚动向左按钮
 addEvent($("pre"), "click", function(){
+	alert(index, slideIndex);
 	if(slideIndex !== -1) left();
 	alert(index, slideIndex);
 })
@@ -96,6 +98,7 @@ addEvent($("pre"), "click", function(){
 var startPos, endPos;
 var isScrolling = -1;//纵向滑动1，横向滑动0
 addEvent(document, "touchstart", function(event){
+	event.preventDefault();
 	var touch = event.targetTouches[0];//touches数组对象获得屏幕上所有的touch，取第一个touch
 	startPos = {
 		x: touch.pageX,
@@ -104,7 +107,6 @@ addEvent(document, "touchstart", function(event){
 	};
 })
 addEvent(document, "touchmove", function(event){
-	event.preventDefault();
 	//当屏幕有多个touch或者页面被缩放过，就不执行move操作
 　　if(event.targetTouches.length > 1 || event.scale && event.scale !== 1) return;
 　　var touch = event.targetTouches[0];
