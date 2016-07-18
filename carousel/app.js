@@ -85,10 +85,12 @@ function right(){
 //横向滚动向右按钮
 addEvent($("next"), "click", function(){
 	if(slideIndex !== -1) right();
+	alert(slideIndex);
 })
 //横向滚动向左按钮
 addEvent($("pre"), "click", function(){
 	if(slideIndex !== -1) left();
+	alert(slideIndex);
 })
 
 var startPos, endPos;
