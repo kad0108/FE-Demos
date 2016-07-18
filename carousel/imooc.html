@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>carousel</title>
+	<style>
+		*{ 
+			margin: 0; 
+			padding: 0; 
+			text-decoration: none;
+		}
+		body { 
+			padding: 20px;
+		}
+		#container { 
+			width: 600px; 
+			height: 400px; 
+			/*border: 3px solid #333; */
+			overflow: hidden; 
+			position: relative;
+		}
+		#list { 
+			width: 4200px; 
+			height: 400px; 
+			position: absolute; 
+			z-index: 1;
+
+			/*transition: left 1s ease;*/
+		}
+		#list section { 
+			float: left;
+			width: 600px;
+			height: 400px;
+		}
+		#buttons { 
+			position: absolute; 
+			height: 10px; 
+			width: 100px; 
+			z-index: 2; 
+			bottom: 20px; 
+			left: 250px;
+		}
+		#buttons span { 
+			cursor: pointer; 
+			float: left; 
+			border: 1px solid #fff; 
+			width: 10px; 
+			height: 10px; 
+			border-radius: 50%; 
+			background: #333; 
+			margin-right: 5px;
+		}
+		#buttons .on {  
+			background: orangered;
+		}
+		.arrow { 
+			cursor: pointer; 
+			display: none; 
+			line-height: 39px; 
+			text-align: center; 
+			font-size: 36px; 
+			font-weight: bold; 
+			width: 40px; 
+			height: 40px;  
+			position: absolute; 
+			z-index: 2; 
+			top: 180px; 
+			background-color: RGBA(0,0,0,.3); 
+			color: #fff;
+		}
+		.arrow:hover { 
+			background-color: RGBA(0,0,0,.7);
+		}
+		#container:hover .arrow { 
+			display: block;
+		}
+		#pre { 
+			left: 20px;
+		}
+		#next { 
+			right: 20px;
+		}
+		#list:before, #list:after{
+			content: "";
+			display: block;
+			clear: both;
+		}	
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="list" style="left:-600px;">
+			<section data-anchor="page5" style="background-color:rgb(255, 153, 0)"></section><!-- 假图 -->
+			<section data-anchor="page1" style="background-color:rgb(75, 191, 195)"></section>
+			<section data-anchor="page2" style="background-color:rgb(240, 81, 131)"></section>
+			<section data-anchor="page3" style="background-color:rgb(27, 188, 155)"></section>
+			<section data-anchor="page4" style="background-color:rgb(123, 170, 190)"></section>
+			<section data-anchor="page5" style="background-color:rgb(255, 153, 0)"></section>
+			<section data-anchor="page1" style="background-color:rgb(75, 191, 195)"></section><!-- 假图 -->
+		</div>
+	<div id="buttons">
+		<span data-index="1" class="on"></span>
+		<span data-index="2"></span>
+		<span data-index="3"></span>
+		<span data-index="4"></span>
+		<span data-index="5"></span>
+	</div>
+	<a href="javascript:;" class="arrow" id="pre">&lt;</a>
+	<a href="javascript:;" class="arrow" id="next">&gt;</a>
+	</div>
+	<script src="../base.js"></script>
+	<script>
+		window.onload = function(){
+			var container = $("container");
+			var list = $("list");
+			var buttons = $("buttons").getElementsByTagName("span");
+			var pre = $("pre");
+			var next = $("next");
+			var index = 1;
+			var animated = false;
+			var timer;
+
+			function showButton(){
+				buttons[index - 1].className = 'on';
+			}
+			function clearChose(){
+				buttons[index - 1].className = '';
+			}
+
+			function animate(offset){
+				animated = true;
+				var newLeft = parseInt(list.style.left) + offset;
+				var time = 300;
+				var interval = 10;
+				var speed = offset / (time / interval);
+
+				function go(){
+					if((speed < 0 && parseInt(list.style.left) > newLeft) ||
+						(speed > 0 && parseInt(list.style.left) < newLeft)){
+						list.style.left = parseInt(list.style.left) + speed + 'px';
+						setTimeout(go, interval);
+					}else{
+						animated = false;
+						list.style.left = newLeft + 'px';
+						if(newLeft > -600){
+							list.style.left = -3000 + 'px';
+						}
+						if(newLeft < -3000){
+							list.style.left = -600 + 'px';
+						}
+					}
+				}
+				go();
+			}
+
+			addEvent(next, "click", function(){
+				if(!animated){
+					clearChose();
+					if(index == 5) index = 1;
+					else index++;
+					showButton();
+					animate(-600);
+				}
+			})
+			addEvent(pre, "click", function(){
+				if(!animated){
+					clearChose();
+					if(index == 1) index = 5;
+					else index--;
+					showButton();
+					animate(600);
+				}
+			})
+			addEvent($("buttons"), "click", function(event){
+				var event  = event || window.event;
+				var target = event.target || event.srcElement;
+				if(target && target.tagName === "span".toUpperCase()){
+					var myIndex = parseInt(target.dataset.index);
+					if(myIndex === index) return;
+					clearChose();
+					var offset = -600 * (myIndex - index);
+					if(!animated) animate(offset);
+					index = myIndex;
+					showButton();
+				}
+			})
+
+
+			function play(){
+				timer = setInterval(function(){
+					try{
+						var eventObj = document.createEvent("MouseEvents");//创建事件对象
+						eventObj.initEvent("click", true, false);//初始化事件信息
+						next.dispatchEvent(eventObj);//将事件绑定到特定dom节点上
+					}catch(e){
+						next.fireEvent("onclick");//ie
+					}
+				}, 2000);
+			}
+
+			function stop(){
+				clearInterval(timer);
+			}
+
+			addEvent(container, "mouseover", stop);
+			addEvent(container, "mouseout", play);
+			play();
+		}
+	</script>
+</body>
+</html>

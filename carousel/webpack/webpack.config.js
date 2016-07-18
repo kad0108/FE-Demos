@@ -5,7 +5,7 @@ module.exports = {
 	output: {
 		path: __dirname + '/build',
 		filename: '[name].js',
-		library: 'app',
-		libraryTarget: 'umd'
+		library: 'app',//设置库的名称
+		libraryTarget: 'umd' //导出方式，umd方式是支持cmd、amd和全局window的访问方式
 	}
 }
