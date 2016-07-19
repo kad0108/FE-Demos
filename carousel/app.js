@@ -94,7 +94,7 @@ addEvent($("pre"), "click", function(){
 var startPos, endPos;
 var isScrolling = -1;//纵向滑动1，横向滑动0
 addEvent(document, "touchstart", function(event){
-	event.preventDefault();
+	// event.preventDefault();放在这里会导致点击事件失效
 	var touch = event.targetTouches[0];//touches数组对象获得屏幕上所有的touch，取第一个touch
 	startPos = {
 		x: touch.pageX,
@@ -103,6 +103,7 @@ addEvent(document, "touchstart", function(event){
 	};
 })
 addEvent(document, "touchmove", function(event){
+	event.preventDefault();
 	//当屏幕有多个touch或者页面被缩放过，就不执行move操作
 　　if(event.targetTouches.length > 1 || event.scale && event.scale !== 1) return;
 　　var touch = event.targetTouches[0];
@@ -115,12 +116,12 @@ addEvent(document, "touchmove", function(event){
 addEvent(document, "touchend", function(event){
 	var duration = +new Date - startPos.time;//滑动持续时间
 	if(Number(duration) > 10){
-		if(isScrolling === 0 && slideIndex === 1){//水平滚动
+		if(isScrolling === 0 && slideIndex !== -1){//水平滚动
 			//判断是左移还是右移，偏移量大于10时执行
-			if(endPos.x < 10){
-				right();
-			}else if(endPos.x > -10){
+			if(endPos.x > 10){
 				left();
+			}else if(endPos.x < -10){
+				right();
 			}
 		}
 		if(isScrolling === 1){//垂直移动
@@ -131,6 +132,8 @@ addEvent(document, "touchend", function(event){
 			}
 		}
 	}
+	endPos.x = 0;
+	endPos.y = 0;
 })
 
 
