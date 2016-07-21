@@ -1,0 +1,1 @@
+### 用requestAnimationFrame实现web动画，更新频率每秒60次，比setTimeout、setInterval更流畅的体验，页面不是激活状态下动画会自动暂停，有效节省了CPU开销。
