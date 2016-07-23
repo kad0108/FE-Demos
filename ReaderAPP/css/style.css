@@ -10,6 +10,9 @@ body{
 	overflow: hidden;
 	background:#e9dfc7;
 }
+.container{
+	position: relative;
+}
 .m-read-content{
 	min-height: 768px;
 	font-size:14px;
@@ -30,6 +33,34 @@ body{
 	letter-spacing:0px;
 	line-height:24px;
 }
+.expand{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	z-index: 99;
+	width: 160px;
+	background: #25282c;
+	padding: 10px;
+	margin-left: -160px;
+	/*visibility: hidden;*/
+	transition: margin-left 0.3s ease;
+}
+.catalog-show{
+	margin-left: 0;
+	visibility: visible;
+}
+.expand p{
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	color: #b5b9bc;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
 .u-tab{
 	height:34px;
 	margin:10px auto;
@@ -145,7 +176,7 @@ body{
 	background:#000;
 	opacity:0.9;
 	color:#fff;
-	z-index:4;
+	z-index:6;
 }
 .child-mod{
 	padding:5px 10px;
@@ -202,14 +233,18 @@ body{
 }
 
 .toast{
-	position: absolute;
+	position: fixed;
+	margin: 0 auto;
 	top: 5%;
 	z-index: 99;
-	left: 45%;
+	min-width: 120px;
+	left: 50%;
+	margin-left: -60px;
+	text-align: center;
 	background-color: black;
+	opacity: 0.8;
 	color: white;
-	font-size: 18px;
+	font-size: 16px;
 	padding: 10px;
-	margin: 10px;
 	border-radius: 5px;
 }
