@@ -8,3 +8,4 @@
 * 细节处理：调节字体背景div的z-index值应该比唤起上下导航栏的z-index值大。为了使每次加载页面返回页面顶部，$(window).scrollTop(0)应该放在渲染UI的回调函数中执行。
 * 自己实现了一个简易版的toast效果，使用jquery的fadeIn、fadeOut方法效果更好。
 * 使用ES6必须有声明'use strict'，使用promise代替异步回调
+* 之后再实现请求目录数据
