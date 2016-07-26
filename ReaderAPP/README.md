@@ -1,5 +1,5 @@
-### 参考慕课网教程实现WebAPP阅读器
-##### 接触到的知识点
+### 参考慕课网教程实现WebAPP阅读器 [demo访问这里](http://kad0108.github.io/Html5/ReaderAPP/)
+#### 接触到的知识点
 * 引入两个jquery库，需要底层库zepto的基础方法支持，因为jquery在移动端性能低，而zepto更加轻量级。阅读器的数据为了防止直接被爬虫爬到，把数据做了base64加密，需要解码的过程，也就是引入的base64数据解码库。jsonp库提供了跨域数据请求。
 * css3选择器的使用:nth-child，索引从1开始。background-size:contain自适应容器宽度高度，一定在设置了背景之后加。
 * 移动端代码尽量轻量级，把代码直接放在一个闭包中不影响全局：(function(){})();
