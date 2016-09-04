@@ -40,7 +40,36 @@
         </div>
 
         <script type="text/javascript">
-
+            var cfg = {
+                type: 'point',
+                width: 300,
+                height:  300,
+                data: [
+                    ['A', .4, 'green'],
+                    ['B', .2, 'yellow', 0, '-80%'],
+                    ['C', .2, 'red', 0, '120%'],
+                ],
+                css: {
+                    bottom: 0,
+                    opacity: 1
+                },
+                animateIn: {
+                    bottom: '40%',
+                    opacity: 1
+                },
+                animateOut: {
+                    bottom:0,
+                    opacity: 0
+                },
+                center: true,
+            }
+            var h5 = new H5ComponentPoint('myname', cfg);
+            $('.iphone').append(h5);
+            var load = true;
+            $('body').click(function(){
+                $('.h5_component').trigger(load ? 'onLoad' : 'onLeave');
+                load = !load;
+            })
         </script>
 
     </body>
