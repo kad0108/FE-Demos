@@ -7,3 +7,6 @@
 * 对封装的函数进行链式调用，只需每次调用的函数内部返回this即可。
 * (function(){})();表示立即执行匿名函数，而 $(function(){}) 是 $(document).ready(function(){})的简写，表示在Dom加载完之后执行。
 * $.extend()是对jquery类中的对象方法进行扩展，$.fn.extend()是对jquery.prototype进行扩展。
+* chrome不支持显示小于12像素的字，通过transform的缩放来实现。
+* 散点图、主图的生长动画由载入时css的transition完成.
+* 折线图由canvas绘制，背景网格线是一层canvas，数据点及阴影是一层canvas，生成动画则是每次绘制percent数据直至最终数据。

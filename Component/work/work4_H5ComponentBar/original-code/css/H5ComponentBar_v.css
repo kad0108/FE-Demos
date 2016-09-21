@@ -44,7 +44,7 @@
     position: absolute;
     left: 0;
     /*任务三：(1)修正 百分比数字 的位置，使其保持在 .bg 的顶端*/
-    
+    top: -20px;
     height: 20px;
     line-height: 20px;
     text-align: center;
