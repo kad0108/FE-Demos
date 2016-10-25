@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>drag and drop</title>
+	<style>
+		*{
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.dustbin{
+			width: 100px;
+			height: 260px;
+			background-color: grey;
+			font-size: 36px;
+			float: left;
+			text-align: center;
+			line-height: 38px;
+		}
+		.dragbox{
+			width: 300px;
+			margin-left: 160px;
+			border: 2px dotted #ccc;
+			height: 40px;
+			margin-bottom: 10px;
+			background-color: #eee;
+			cursor: move;
+		}
+		.dragremind{
+			clear: both;
+			padding-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="dustbin"><br/>垃<br/>圾<br/>箱</div>
+	<div class="draglist">
+		<div class="dragbox" draggable="true" title="拖放我看看">物品1</div>
+		<div class="dragbox" draggable="true" title="拖放我看看">物品2</div>
+		<div class="dragbox" draggable="true" title="拖放我看看">物品3</div>
+		<div class="dragbox" draggable="true" title="拖放我看看">物品4</div>
+		<div class="dragbox" draggable="true" title="拖放我看看">物品5</div>
+	</div>
+	<div class="dragremind"></div>
+
+	<script src="drag.js"></script>
+</body>
+</html>
