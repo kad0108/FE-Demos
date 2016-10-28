@@ -1,0 +1,59 @@
+.arc{
+	width: 30px;
+	height: 30px;
+	position: relative;
+	margin: 0 auto;
+	margin-top: 60px;
+	border-radius: 50%;
+	border: 5px solid #3498db;
+	border-right-color: #eee;
+	border-left-color: #eee;
+	border-bottom-color: #eee;
+
+	/*border-top:3px solid #3698db;上面三句和这句的效果竟然不一样*/
+
+	animation: arc 1s ease-in-out infinite;
+	-webkit-animation: arc 1s linear infinite;
+	
+}
+
+@keyframes arc{
+	0%{
+		-webkit-transform: rotate(0deg);
+	}
+	10%{
+        -webkit-transform: rotate(45deg);
+    }
+    50%{
+        -webkit-transform: rotate(160deg);
+    }
+    65%{
+        -webkit-transform: rotate(200deg);
+    }
+    90%{
+        -webkit-transform: rotate(340deg);
+    }
+	100%{
+		-webkit-transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes arc{
+	0%{
+		-webkit-transform: rotate(0deg);
+	}
+	10%{
+        -webkit-transform: rotate(45deg);
+    }
+    50%{
+        -webkit-transform: rotate(160deg);
+    }
+    65%{
+        -webkit-transform: rotate(200deg);
+    }
+    90%{
+        -webkit-transform: rotate(340deg);
+    }
+	100%{
+		-webkit-transform: rotate(360deg);
+	}
+}
