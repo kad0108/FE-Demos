@@ -50,6 +50,8 @@ p{
 #caption{
 	position: absolute;
 	bottom: 0;
+	left: 50%;
+	margin-left: -500px;
 	/*text-align: justify;*/
 	font-size: 60px;
 	overflow: hidden;
