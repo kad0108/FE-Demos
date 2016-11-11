@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星球大战字幕实现</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>2016.11.11 <sub>巨献</sub><sub>by kad</sub></h1>
+	<div id="caption">
+		<div id="caption_content">
+			<p class="center">1.01^365=37.5</p>
+			<br>
+			<p>「前端攻城狮」系列开篇——</p>
+			<br>
+			<p>前端需要学习的知识好多好多啊～</p>
+			<p>HTML &amp; CSS &amp; JavaScript</p>
+			<p>HTML5 &amp; CSS3</p>
+			<p>Computer NetWork</p>
+			<p>Operating System</p>
+			<p>Algorithm &amp; Data Structure</p>
+			<p>Sublime &amp; WebStorm &amp; VS Code</p>
+			<p>Ajax &amp; ES6</p>
+			<p>JQuery &amp; Zepto &amp; Sass</p>
+			<p>VueJS &amp; ReactJS &amp; AngularJS</p>
+			<p>Git &amp; Webpack &amp; Gulp</p>
+			<p>NodeJS &amp; MongoDB</p>
+			<p>C++ &amp; Python &amp; JAVA</p>
+			<br>
+			<p>追过的美剧～</p>
+			<p>The Big Bang</p>
+			<p>The Flash</p>
+			<p>Prison Break</p>
+			<p>WestWorld</p>
+			<p>Arrow</p>
+			<p>Game of Thrones</p>
+		</div>
+	</div>
+	<!-- 音频预加载并自动缓冲 音频就绪后马上播放并循环播放-->
+	<audio id="audio" src="StarWars.mp3" preload="true" autobuffer="true" autoplay loop></audio>
+
+	<script src="../base.js"></script>
+	<script>
+		$('audio').volume = 0.3;
+		var width = document.body.clientWidth;
+		var height = document.body.clientHeight;
+		console.log(width, height);
+		$('caption').style.width = width + 'px';
+		$('caption').style.height = height*3 + 'px';
+	</script>
+</body>
+</html>
