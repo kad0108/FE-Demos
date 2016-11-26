@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cookie</title>
+</head>
+<body>
+	<button type="button" onclick="delCookie()">delete cookie</button>
+	<script>
+		checkCookie();
+		/*
+		* 创建cookie
+		* @param c_name {string} cookie名称
+		* @param value {string} 用户输入姓名
+		* @param expiredays {number} cookie过期时间
+		*/
+		function setCookie(c_name, value, expiredays){
+			var exdate = new Date();
+			exdate.setDate(exdate.getDate() + expiredays);
+			document.cookie = c_name + "=" + escape(value) + 
+				((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
+		}
+		/*
+		* 读取cookie
+		* @param c_name {string} cookie名称
+		*/
+		function getCookie(c_name)
+		{
+			if(document.cookie.length > 0){
+				var c_start = document.cookie.indexOf(c_name + '=');
+				if(c_start != -1){
+					c_start += c_name.length + 1;
+					c_end = document.cookie.indexOf(';', c_start);
+					if(c_end == -1) c_end = document.cookie.length;
+					return unescape(document.cookie.substring(c_start, c_end))
+				}
+			}
+			return "";
+		}
+		/*
+		* 检查cookie
+		*/
+		function checkCookie(){
+			var username = getCookie('username');
+			var date = getCookie('lastLog');
+			if(username != null && username != ""){
+				alert("Welcome again " + username + " ! \n\nYour last visit was on " + date);
+			}else{
+				username = prompt("Please enter your name:", "kad");
+				if(username != null && username.trim() != ""){
+					setCookie("username", username, 365);
+					setCookie("lastLog", new Date());
+				}
+			}
+		}
+		/*
+		* 删除cookie
+		*/
+		function delCookie(){
+			var exdate = new Date();
+			exdate.setTime(-1000);//设置毫秒
+			var data = document.cookie.split(';');
+			// console.log(data instanceof Array);
+			data.forEach(function(item, index){
+				var itemArr = item.split('=');
+				document.cookie = itemArr[0] + "='';expires=" + exdate.toGMTString();
+			});
+		}
+	</script>
+</body>
+</html>
