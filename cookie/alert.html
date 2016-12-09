@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹窗</title>
+</head>
+<body>
+	<div>我只弹一次，1min后cookie过期我会再弹</div>
+
+	<script>
+		/*
+		* 实现功能：用户第一次打开页面时显示消息弹框，到当天24点钱，同一天内访问该页面不再显示该弹框，用户点击弹框内的'我知道了'按钮伺候不再显示该弹框
+		*/
+
+		function setCookie(name, value, expire){
+			window.document.cookie = name + '=' + escape(value) + ((expire == null) ? "" : ("; expires=" + expire.toGMTString()));
+		}
+		function getCookie(name){
+			var search = name + '=';
+			if(window.document.cookie.length > 0){
+				offset = window.document.cookie.indexOf(search);
+				if(offset != -1){
+					offset += search.length;
+					end = window.document.cookie.indexOf(';', offset);
+					if(end == -1) end = window.document.cookie.length;
+					return unescape(window.document.cookie.substring(offset, end));
+				}
+			}
+			return null;
+		}
+		function register(name){
+			var today = new Date();
+			var expires = new Date();
+			expires.setTime(today.getTime() + 1000*60);
+			setCookie("alert", name, expires);
+		}
+		function openWin(){
+			var c = getCookie("alert");
+			if(c != null){
+				return;
+			}
+			register("lz");
+			var featureStr = "left=500,top=600,width=300,height=200,toolbar=yes, menubar=no, scrollbars=no, resizable=no, location=no, status=no,center:no";
+			window.self.focus();
+			var exitWin = window.open("http://kad0108.github.io/", '', featureStr);
+			// exitWin.focus();
+		}
+		openWin();
+		window.focus();
+	</script>
+</body>
+</html>
