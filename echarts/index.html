@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Echarts</title>
+</head>
+<body>
+	<!-- 为Echarts准备一个具备大小的Dom -->
+	<div id="bar" style="width: 600px;height:400px;"></div>
+	<div id="pie" style="width: 600px;height:400px;"></div>
+	<div id="scatter" style="width: 600px;height:400px;"></div>
+
+	<script src="echarts.common.min.js"></script>
+	<script>
+		// 如果是npm安装的，则通过require得到echarts
+		// var echarts = require('echarts');
+
+		
+		// 初始化echarts实例
+		var myChartBar = echarts.init(document.getElementById('bar'));
+		// 指定图标配置项和数据
+		var option = {
+			title: {
+				text: 'Echarts 入门示例'
+			},
+			tooltip: {},
+			legend: {
+				data: ['柱图']
+			},
+			xAxis: {
+				data: ['Vue', 'React','Angular','JavaScript', 'Html5', 'CSS3']
+			},
+			yAxis: {},
+			series: [{
+				name: '柱图',
+				type: 'bar', // 柱图
+				data: [5, 20, 36, 10, 10, 20]
+			}]
+		};
+		// 使用配置项和数据显示图标
+		myChartBar.setOption(option);
+
+
+		
+		var myChartPie = echarts.init(document.getElementById('pie'));
+		myChartPie.setOption({
+			backgroundColor: '#2c343c',
+			textStyle: {
+		        color: 'rgba(255, 255, 255, 0.3)'
+		    },
+		    legend: {
+				data: ['饼图'],
+				textStyle: {
+			        color: 'rgba(255, 255, 255, 0.3)'
+			    },
+			},
+			series: [{
+				name: '饼图',
+				type: 'pie',
+				radius: '55%',
+				// roseType: 'angle', // 显示成南丁格尔图
+				data: [
+					{value:400, name: 'JavaScript'},
+					{value:335, name: 'Vue'},
+					{value:310, name: 'Html5'},
+					{value:274, name: 'CSS3'}
+				],
+				itemStyle: {
+				    // normal: { // 正常展示下的样式
+				    //     // 阴影的大小
+				    //     shadowBlur: 200,
+				    //     // 阴影水平方向上的偏移
+				    //     shadowOffsetX: 0,
+				    //     // 阴影垂直方向上的偏移
+				    //     shadowOffsetY: 0,
+				    //     // 阴影颜色
+				    //     shadowColor: 'rgba(0, 0, 0, 0.5)'
+				    // },
+				    emphasis: { // hover时的阴影样式
+				        shadowBlur: 200,
+				        shadowColor: 'rgba(0, 0, 0, 0.5)'
+				    }
+				},
+				labelLine: { // 视觉引导线
+				    normal: {
+				        lineStyle: {
+				            color: 'rgba(255, 255, 255, 0.3)'
+				        }
+				    }
+				},
+			}]
+		})
+
+		
+		var myChartScatter = echarts.init(document.getElementById('scatter'));
+		myChartScatter.setOption({
+			legend: {
+				data: ['散点图'],
+			},
+			xAxis: {
+		        type: 'value'
+		    },
+		    yAxis: {
+		        type: 'value'
+		    },
+		    dataZoom: [
+		        {   // 这个dataZoom组件，默认控制x轴。
+		            type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+		            start: 10,      // 左边在 10% 的位置。
+		            end: 60         // 右边在 60% 的位置。
+		        },
+		        {   // 这个dataZoom组件，也控制x轴。
+		            type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
+		            start: 10,      // 左边在 10% 的位置。
+		            end: 60         // 右边在 60% 的位置。
+		        }
+		    ],
+		    series: [
+		        {
+		        	name: '散点图',
+		            type: 'scatter', // 这是个『散点图』
+		            itemStyle: {
+		                normal: {
+		                    opacity: 0.8
+		                }
+		            },
+		            symbolSize: function (val) {
+		                return val[2] * 40;
+		            },
+		            data: [["14.616","7.241","0.896"],["3.958","5.701","0.955"],["2.768","8.971","0.669"],["9.051","9.710","0.171"],["14.046","4.182","0.536"],["12.295","1.429","0.962"],["4.417","8.167","0.113"],["0.492","4.771","0.785"],["7.632","2.605","0.645"],["14.242","5.042","0.368"]]
+		        }
+		    ]
+		})
+	</script>
+	
+</body>
+</html>
