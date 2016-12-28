@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Throttle Test</title>
+	<style>
+		body{
+			text-align: center;
+		}
+		.hint{
+			color: #777;
+		}
+		#box{
+			border: 1px solid #ccc;
+			width: 600px;
+			position: absolute;
+		}
+		#move{
+			cursor: move;
+			height: 50px;
+			border-bottom: 1px solid #ccc;
+		}
+		iframe{
+			width: 600px;
+			height: 400px;
+		}
+		#mask{
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 2;
+			width: 100%;
+			height: 100%;
+			cursor: move;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="btns">
+		<button data-val="0" disabled>普通模式</button>
+		<button data-val="1">函数节流</button>
+		<button data-val="2">函数节流拓展（50ms必定执行）</button>
+	</div>
+	<p class="hint"> Hint:没有做浏览器兼容性检查，建议用chrome打开该页面</p>
+	<div id="box" style="left: 300px;top: 100px;">
+		<div id="move"></div>
+		<iframe src="https://kad0108.github.io/" frameborder="0"></iframe>
+	</div>
+	<div id="mask"></div>
+
+	<script>
+		function $(selector, context){
+			context = context || document;
+			var nodelist = context.querySelectorAll(selector);
+			if(selector.charAt(0) == '#') return nodelist[0];
+			return nodelist;
+		}
+
+		var processor = {
+			throttle: function(fn, delay){
+				var timer = null;
+				return function(){
+					clearTimeout(timer);
+					timer = setTimeout(()=>{
+						fn.apply(this, arguments);
+					}, delay);
+				}
+			},
+			expandThrottle: function(fn, delay, mustRunDelay){
+				var timer = null,
+					start;
+				return function(){
+					var cur = +new Date();
+					clearTimeout(timer);
+					if(!start) start = cur;
+					if(cur - start >= mustRunDelay){
+						fn.apply(this, arguments);
+					}else{
+						timer = setTimeout(()=>{
+							fn.apply(this, arguments);
+						}, delay);
+					}
+				}
+			}
+		}
+
+		var index = 0;
+		var moveFns = [];
+		var box = $('#box');
+		var mask =$('#mask');
+		var pos = {
+			oldX: 0,
+			oldY: 0,
+			left: 0,
+			top: 0
+		}
+		var move = function(event){
+			box.style.left = (event.clientX - (pos.oldX - pos.left)) + 'px';
+			box.style.top = (event.clientY - (pos.oldY - pos.top)) + 'px';
+		}
+		moveFns[0] = function(){
+			move(arguments[0]);
+			console.log('normal');
+		}
+		moveFns[1] = processor.throttle(function(){
+			move(arguments[0]);
+			console.log('throttle');
+		}, 100)
+		moveFns[2] = processor.expandThrottle(function(){
+			move(arguments[0]);
+			console.log('expandThrottle');
+		}, 100, 50);
+
+		$('#move').onmousedown = function(event){
+			pos.oldX = event.clientX;
+			pos.oldY = event.clientY;
+			pos.left = parseInt(box.style.left);
+			pos.top = parseInt(box.style.top);
+			mask.style.display = 'block';
+		}
+		mask.onmousemove = function(event){
+			moveFns[index](event);
+		}
+		mask.onmouseup = function(){
+			mask.style.display = 'none';
+		}
+		$('#btns').onclick = function(event){
+			var target = event.target;
+			index = parseInt(target.dataset.val);
+			var siblings = target.parentNode.childNodes;
+			for(var i = 0; i < siblings.length; i++){
+				siblings[i].disabled = false;
+			}
+			target.disabled = true;
+		}
+	</script>
+</body>
+</html>

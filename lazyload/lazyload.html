@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        img {
+            display: block;
+            margin-bottom: 50px;
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    <img src="default.png" data-src="./aurora.jpg" alt="">
+    
+
+    <script>
+    	var img = document.querySelectorAll('img');
+    	var start = 0;
+
+    	function lazyload(){
+    		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    		for(let i = start, len = img.length; i < len; i++){
+    			if(scrollTop + innerHeight > img[i].offsetTop){
+    				img[i].src = img[i].dataset.src;
+    				start = i + 1;
+    			}
+    		}
+    	}
+
+        function throttle(fn, delay, mustRunDelay){
+            var timer = null,
+                start;
+            return function(){
+                var cur = +new Date();// 返回当前时间的毫秒数，相当于调用date.getTime()
+                clearTimeout(timer);
+                if(!start) start = cur;
+                if(cur - start >= mustRunDelay){
+                    fn.apply(this, arguments);
+                    start = cur;
+                }else{
+                    timer = setTimeout( () => {
+                        fn.apply(this, arguments);//this指向window，将lazyload中的this也指向window
+                    }, delay);
+                }
+            };
+        }
+
+    	window.onscroll = throttle(lazyload, 500, 1000);
+    	lazyload();
+    </script>
+</body>
+</html>
