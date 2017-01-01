@@ -51,7 +51,7 @@
           save() {
             const plan = {
               name : 'Aurora',
-              avatar : '/static/aurora.jpg',
+              avatar : 'static/aurora.jpg',
               date : this.date,
               totalTime : this.totalTime,
               comment : this.comment

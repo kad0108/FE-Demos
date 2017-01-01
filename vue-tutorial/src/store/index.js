@@ -6,7 +6,7 @@ import actions from './actions'
 Vue.use(Vuex);
 
 const state = {
-	totalTime: 0,
+	totalTime: 24,
 	list: [{
 			name : 'Aurora',
 			avatar : 'static/aurora.jpg',
