@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>WebSocket</title>
+   <style>
+      #log p{
+         margin: 0;
+         padding: 0;
+      }
+      #log{
+         background-color: black;
+         color: #d9e6cd;
+         font-size: 16px;
+         height: 500px;
+      }
+   </style>
+</head>
+<body>
+   <div>
+      <input type="text" id="meg">
+      <button type="button" id="btn">send message</button>
+   </div>
+   <div id="log">
+   </div>
+
+   <script>
+      function $(ele){
+         return document.querySelectorAll(ele)[0];
+      }
+      var input = $('#meg');
+      var btn = $('#btn');
+      var logEle = $('#log');
+
+      function log(content){
+         var p = document.createElement('p');
+         p.innerHTML = content;
+         logEle.appendChild(p);
+      }
+
+      if('WebSocket' in window){
+         log('您的浏览器支持 WebSocket!');
+         var ws = new WebSocket("ws://localhost:9998/");
+         ws.onopen = function(){
+            log('与服务器建立连接')
+            btn.onclick = function(){
+               ws.send(input.value);
+               log('数据已发送');
+            }
+         }
+         ws.onmessage = function(e){
+            log('来自服务器的信息：' + e.data);
+         }
+         ws.onclose = function(){
+            log('连接已关闭');
+         }
+      }else{
+         log('您的浏览器不支持 WebSocket!');
+      }
+   </script>
+</body>
+</html>
