@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PageVisibility</title>
+	<style>
+		#canvas{
+			display: block;
+			margin: 60px auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<h1>HTML5 Page Visibility demo<em> 切换tab再回来看</em></h1>
+		<canvas id="canvas" title="click to stop.">Your browser is not support canvas!</canvas>
+	</div>
+
+	<script>
+		(function(){
+			const WIDTH = 400;
+			const HEIGHT = WIDTH;
+			const RADIUS = WIDTH/2;
+			var angle = 0;
+			var timer;
+			var running = true;
+			var color = 'green';
+
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+			canvas.width = WIDTH;
+			canvas.height = HEIGHT;
+
+			function draw(){
+				if(angle >= 360){
+					color = color === 'green' ? 'white' : 'green';
+					angle %= 360;
+				}
+				context.save();
+				context.beginPath();
+				context.arc(RADIUS, RADIUS, RADIUS, angle/180*Math.PI, (++angle)/180*Math.PI, false);//画弧线
+				context.lineTo(RADIUS, RADIUS);
+				context.closePath();
+				context.fillStyle = color;
+				context.fill();
+				context.restore();
+			}
+			function run(){
+				running = true;
+				timer = setInterval(draw, 30);
+			}
+			function stop(){
+				running = false;
+				clearInterval(timer);
+				timer = null;
+			}
+
+			canvas.addEventListener('click', function(){
+				if(running) stop();
+				else run();
+			})
+			document.addEventListener('visibilitychange', function(){
+				if(document.hidden) stop();
+				else run();
+			})
+			run();
+		})();
+	</script>
+</body>
+</html>

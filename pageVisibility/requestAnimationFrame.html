@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RequestAnimationFrame</title>
+	<style>
+		#canvas{
+			display: block;
+			margin: 60px auto;
+		}
+	</style>
+</head>
+<body>
+	<h1>RequestAnimationFrame同样实现Tab切换之后，计算渲染绘制都停止，Tab切换回来继续绘制</h1>
+	<canvas id="canvas"></canvas>
+	<script>
+		window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+
+		const WIDTH = 400;
+		const HEIGHT = WIDTH;
+		const RADIUS = WIDTH/2;
+		var angle = 0;
+		var running = true;
+		var color = 'green';
+
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		canvas.width = WIDTH;
+		canvas.height = HEIGHT;
+
+		function draw(){
+			if(angle >= 360){
+				color = color === 'green' ? 'white' : 'green';
+				angle %= 360;
+			}
+			context.save()
+			context.beginPath();
+			context.arc(RADIUS, RADIUS, RADIUS, angle/180*Math.PI, (++angle)/180*Math.PI, false);
+			context.lineTo(RADIUS, RADIUS);
+			context.closePath();
+			context.fillStyle = color;
+			context.fill();
+			context.restore();
+			requestAnimationFrame(draw);
+		}
+
+		draw();
+	</script>
+</body>
+</html>
