@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HandWriting</title>
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<style>
+		#canvas{
+			display: block;
+			margin: 0 auto;
+		}
+		#controller{
+			margin: 0 auto;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
+		.clear_btn{
+			margin: 10px 0 0 10px;
+			padding: 0;
+			border: 2px solid #aaa;
+			width: 80px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 20px;
+			text-align: center;
+			border-radius: 5%;
+			cursor: pointer;
+			background-color: white;
+		}
+		.clear_btn:hover{
+			background-color: #def;
+		}
+		.color_btn{
+			margin: 10px 0 0 10px;
+			padding: 0;
+			width: 40px;
+			height: 40px;
+			line-height: 40px;
+			cursor: pointer;
+			border: 0;
+		}
+		#black_btn{
+			background-color: black;
+		}
+		#green_btn{
+			background-color: green;
+		}
+		.selected{
+			border: 2px solid violet;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<div id="controller">
+		<button type="button" id="black_btn" class="color_btn selected"></button>
+		<button type="button" id="green_btn" class="color_btn"></button>
+		<button type="button" id="clear_btn" class="clear_btn">clear</button>
+	</div>
+
+	<script src="paint.js"></script>
+</body>
+</html>
