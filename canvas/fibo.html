@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		canvas{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<h1>用canvas绘制一个斐波那契数列曲线</h1>
+	<canvas></canvas>
+	<script>
+		(function(){
+			var SIZE = 600,
+				fn = [],
+				pos = {
+					x: SIZE/2, 
+					y: SIZE/2
+				},
+				canvas,
+				context,
+				canvasInit = function(){
+					canvas = document.querySelector('canvas');
+					canvas.width = SIZE;
+					canvas.height = SIZE;
+					context = canvas.getContext('2d');
+					context.strokeStyle = 'black';
+				},
+				getFibo = function(n){
+					if(n == 0) return fn[n] = 0;
+					if(n == 1) return fn[n] = 1;
+					if(fn[n]) return fn[n];
+					return fn[n] = getFibo(n-1) + getFibo(n-2);
+				},
+				draw = function(n){
+					var curR = fn[n];
+					if(n > 2){
+						var tmp = fn[n] - fn[n-1];
+						switch(n % 4){
+							case 0:
+								pos.x -= tmp;
+								break;
+							case 1:
+								pos.y -= tmp;
+								break;
+							case 2:
+								pos.x += tmp;
+								break;
+							case 3:
+								pos.y += tmp;
+								break;
+						}
+					}
+					context.arc(pos.x, pos.y, curR, 0.5*n*Math.PI, 0.5*(n+1)*Math.PI, false);//1/4弧
+					context.stroke();
+				},
+				init = function(n){
+					canvasInit();
+					getFibo(n);
+					for(var i = 1; i <= n; i++){
+						draw(i);
+					}
+				};
+			init(13);
+		})();
+
+
+	</script>
+</body>
+</html>
