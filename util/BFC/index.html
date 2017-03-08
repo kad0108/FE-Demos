@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BFC</title>
+	<style>
+		.container{
+			width: 400px;
+			height: 400px;
+		}
+		.aside{
+			float: left;
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+		}
+		.main{
+			overflow: hidden;
+			background-color: lightgrey;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="aside"></div>
+		<div class="main">我就是为了撑开这个div的</div>
+	</div>
+</body>
+</html>

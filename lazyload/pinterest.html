@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.img-bg{
+			background: #e1e1e1;
+			width: 60%;
+		}
+		img{
+			width: 100%;
+			opacity: 0;
+			transition: opacity .2s ease-in .25s;
+		}
+		.loaded img{
+			opacity: 1;
+		}
+	</style>
+</head>
+<body>
+	<div class="post">
+		<div class="img-bg" style="background-colo:#121646">
+			<img src="https://mir-s3-cdn-cf.behance.net/projects/404/89388038777855.Y3JvcCwxMDk1LDg1NiwyNTIsMjE.png" alt="">
+		</div>
+		<p class="title">Mars</p>
+	</div>
+
+	<script>
+		(function(){
+			var $ = function(ele){
+				return document.querySelectorAll(ele);
+			};
+			[].forEach.call($('.post img'), item => {
+				var img = new Image();
+				img.src = item.src;
+				img.onload = () => {
+					item.parentNode.classList.add('loaded');
+				}
+			})
+		})();
+	</script>
+</body>
+</html>
