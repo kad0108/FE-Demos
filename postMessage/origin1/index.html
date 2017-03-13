@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>origin1</title>
+</head>
+<body>
+	<h1>This is page of origin1!</h1>
+	<iframe src="http://127.0.0.1:8888/" frameborder="0"></iframe>
+
+	<script>
+		window.onload = function(){
+			//页面加载完才能拿到frames集合
+			window.frames[0].postMessage('hello from origin1', 'http://127.0.0.1:8888/');
+
+			window.addEventListener('message', function(e){
+				console.log('origin1: ', e);
+			})
+		}
+	</script>
+</body>
+</html>

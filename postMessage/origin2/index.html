@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>origin2</title>
+</head>
+<body>
+	<h1>this is page of origin2</h1>
+
+	<script>
+		window.addEventListener('message', function(e){
+			//判断数据发送方
+			if(e.source != window.parent) return;
+			console.log('origin2: ', e);
+			e.source.postMessage('hello origin1, I received your message!', e.origin);
+		})
+	</script>
+</body>
+</html>
