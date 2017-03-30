@@ -1,4 +1,7 @@
-## HTML5手势解锁 [demo](https://aurorakong.github.io/GestureLock/)
+## HTML5手势解锁 
+
+demo手机端扫码看啦~
+![lock](lock.png)
 
 ### 实现思路
 
@@ -12,9 +15,4 @@
 3. 没有对这种情况进行处理：同一行的三个点，选中第一个点，绕开第二个点，再连接第三个点，是否需要将第二个点也自动加入路径中。因为手机端下面这种情况也是合理的：
 ![测试](mobile.jpg)
 
-### 知识点
-
-* 遇到个有意思的现象，forEach中使用return不会停止，依旧会正常执行完，使用break会直接报错。
-
-![foreach](foreach.png)
 
