@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Custom Event</title>
+</head>
+<body>
+	<button type="button" onclick="add()">添加自定义事件hello</button>
+	<button type="button" onclick="emit()">触发自定义事件hello</button>
+	<button type="button" onclick="remove()">删除自定义事件hello</button>
+	<!-- <p id="p">test</p>
+	<button type="button" onclick="test()">test</button> -->
+	<script src="./event.js"></script>
+	<script>
+		var evt = new CustomEvent();
+		var cot = 0;
+		
+		function add(){
+			evt.addEvent("hello", function(){
+				cot++;
+				alert("hello from custom event "+ cot +" times!");
+			})
+		}
+		function emit(){
+			evt.emitEvent("hello");
+		}
+		function remove(){
+			evt.removeEvent("hello");
+		}
+
+
+		// var hello = new Event('hello');
+		// var p = document.getElementById('p');
+		// p.addEventListener('hello', function(){
+		// 	alert("hello");
+		// })
+		// function test(){
+		// 	p.dispatchEvent(hello);
+		// }
+	</script>
+</body>
+</html>
