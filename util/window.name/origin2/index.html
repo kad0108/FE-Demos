@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<p>I am origin2</p>
+
+	<script src="./crossOrigin.js"></script>
+	<script>
+		var courl = "http://localhost:8080/"; // 向其获取数据的外域
+		var selfurl = "http://localhost:8088/proxy.html"; // 本域页面
+		coByWindowName(courl, selfurl);
+	</script>
+</body>
+</html>
