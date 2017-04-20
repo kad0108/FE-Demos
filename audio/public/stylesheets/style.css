@@ -1,0 +1,131 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+html, body{
+	height: 100%;
+}
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+}
+header, .left, .right{
+	position: absolute;
+	border: 1px solid #fff;
+}
+header{
+	left: 10px;
+	top: 10px;
+	right: 10px;
+	height: 150px;
+}
+header h1{
+	font-size: 40px;
+	height: 60px;
+	line-height: 60px;
+}
+.left{
+	left: 10px;
+	top: 170px;
+	bottom: 10px;
+	width: 15%;
+}
+.left ul{
+	overflow: auto;
+	list-style: none;
+}
+.left ul li{
+	height: 30px;
+	line-height: 30px;
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: clip;
+	white-space: nowrap;
+}
+.left ul li:hover{
+	color: orange;
+}
+.selected{
+	background-color: #fff;
+	color: #000;
+}
+.right{
+	top: 170px;
+	right: 10px;
+	bottom: 10px;
+	left: calc(15% + 20px);
+	left: -webkit-calc(15% + 20px);
+}
+p{
+	height: 40px;
+	line-height: 40px;
+}
+input[type="range"]{
+	-webkit-appearance: none;
+	background-color: grey;
+	height: 8px;
+	border-radius: 15px;
+	outline: none;
+}
+input[type="range"]::-moz-range-track{
+	background-color: grey;
+	height: 8px;
+	border-radius: 15px;
+	outline: none;
+}
+input[type="range"]::-webkit-slider-thumb{
+	-webkit-appearance: none;
+	height: 12px;
+	width: 12px;
+	background-color: #fff;
+	border-radius: 100%;
+}
+input[type="range"]::-moz-range-thumb{
+	height: 12px;
+	width: 12px;
+	background-color: #fff;
+	border: none;
+	border-radius: 100%;
+}
+.type{
+	margin: 0 auto;
+	list-style: none;
+}
+.type li{
+	display: inline-block;
+	cursor: pointer;
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #fff;
+}
+
+a {
+  color: #00B7FF;
+}
+
+@media screen and (max-width: 800px), screen and (max-height: 500px) {
+	body{
+		font-size: 12px;
+	}
+	header{
+		height: 80px;
+	}
+	header h1{
+		font-size: 24px;
+		height: 34px;
+		line-height: 34px;
+	}
+	.type li{
+		height: 16px;
+		line-height: 16px;
+		width: 50px;
+	}
+	.left, .right{
+		top: 100px;
+	}
+}

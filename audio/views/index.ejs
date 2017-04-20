@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  	<header>
+  		<h1><%= title %></h1>
+  		<ul class="type" id="type">
+  			<li data-type="dot">Dot</li><li data-type="col" class="selected">Column</li>
+  		</ul>
+  		<p>
+  			Volume <input type="range" id="volume" min="0" max="100" value="60">
+  		</p>
+  	</header>
+    <div class="left">
+    	<ul id="list">
+    		<% music.forEach(function(name){ %>
+				<li title="<%= name %>"><%= name %></li>
+    		<% }) %>
+    	</ul>
+    </div>
+    <div class="right" id="box"></div>
+
+    <script src="/javascripts/MusicPlayer.js"></script>
+    <script>
+    	function $(ele){
+			return document.querySelectorAll(ele);
+		}
+
+		requestAnimationFrame = window.requestAnimationFrame ||
+							window.webkitRequestAnimationFrame || 
+							window.mozRequestAnimationFrame;
+
+		var $box = $('#box')[0],
+			$list = $("#list")[0],
+			$volume = $('#volume')[0],
+			$types = $('#type')[0];
+
+
+		var mp = new MusicPlayer({
+			size: 128,
+			$box: $box
+		});
+
+
+		$list.addEventListener('click', function(e){
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+			if(target !== e.currentTarget){
+				clearSelected(this);
+				target.classList.add('selected');
+			}
+			mp.play('/media/' + target.title);
+		})
+
+		$volume.addEventListener('change', function(){
+			mp.changeVolume(this.value / this.max);
+		})
+
+		$types.addEventListener('click', function(e){
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+			if(target !== e.currentTarget){
+				clearSelected(this);
+				target.classList.add('selected');
+				mp.type = target.dataset.type;
+			}
+		})
+
+		function clearSelected(eles){
+			eles.childNodes.forEach((item) => {
+				if(item.nodeName !== '#text') item.classList.remove('selected');
+			})
+		}
+    </script>
+  </body>
+</html>
