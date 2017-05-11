@@ -1,10 +1,6 @@
 /**
 * More style.
 */
-.markdown{
-  padding: 2em;
-  overflow: auto;
-}
 .markdown h2{
   display: inline-block;
   border-bottom: 1px solid;

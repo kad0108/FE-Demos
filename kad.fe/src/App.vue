@@ -71,6 +71,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				let len = this.calLen(idx);
 				let tmpCode = this.allCode[idx];
+				if(!tmpCode) return;
 				let preLen = len - tmpCode.length;
 				
 				let timer = setInterval(() => {
@@ -79,11 +80,11 @@ export default {
 						resolve();
 					}
 					let l = this.code.length - preLen;
-					this.code += tmpCode.substring(l, l+1);
-					if(this.code.charAt(this.code.length-1) === '\n' && this.$refs.editor){
+					this.code += (tmpCode.substring(l, l+1) || ' ');
+					if(this.code.charAt(this.code.length-2) === '\n' && this.$refs.editor){
 						this.$nextTick(() => this.$refs.editor.scrollDown());
 					}
-				}, 50);
+				}, 10);
 			})
 		},
 		runMd () {
@@ -96,11 +97,11 @@ export default {
 						resolve();
 					}
 					this.md = this.allmd.substring(0, cot);
-					if(this.md.charAt(cot-1) === '\n' && this.$refs.mdeditor){
+					if(this.md.charAt(cot-2) === '\n' && this.$refs.mdeditor){
 						this.$nextTick(() => this.$refs.mdeditor.scrollDown());
 					}
 					cot++;
-				}, 50);
+				}, 10);
 			})
 		},
 		showHtml () {
