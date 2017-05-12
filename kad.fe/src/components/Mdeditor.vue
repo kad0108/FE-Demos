@@ -19,7 +19,7 @@ export default {
 	},
 	methods: {
 		scrollDown () {
-			this.$ref.markdown.scrollTop = 10000;
+			this.$refs.mdeditor.scrollTop = 10000;
 		}
 	}
 }

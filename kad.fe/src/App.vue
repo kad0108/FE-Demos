@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<editor ref="editor" :code="code"></editor>
-		<mdeditor ref="markdown" :md="md" :tohtml="tohtml"></mdeditor>
+		<mdeditor ref="mdeditor" :md="md" :tohtml="tohtml"></mdeditor>
 	</div>
 </template>
 
@@ -71,7 +71,6 @@ export default {
 			return new Promise((resolve, reject) => {
 				let len = this.calLen(idx);
 				let tmpCode = this.allCode[idx];
-				if(!tmpCode) return;
 				let preLen = len - tmpCode.length;
 				
 				let timer = setInterval(() => {
@@ -80,7 +79,7 @@ export default {
 						resolve();
 					}
 					let l = this.code.length - preLen;
-					this.code += (tmpCode.substring(l, l+1) || ' ');
+					this.code += tmpCode.substring(l, l+1);
 					if(this.code.charAt(this.code.length-2) === '\n' && this.$refs.editor){
 						this.$nextTick(() => this.$refs.editor.scrollDown());
 					}
