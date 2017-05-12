@@ -83,7 +83,7 @@ export default {
 					if(this.code.charAt(this.code.length-2) === '\n' && this.$refs.editor){
 						this.$nextTick(() => this.$refs.editor.scrollDown());
 					}
-				}, 10);
+				}, 50);
 			})
 		},
 		runMd () {
@@ -100,7 +100,7 @@ export default {
 						this.$nextTick(() => this.$refs.mdeditor.scrollDown());
 					}
 					cot++;
-				}, 10);
+				}, 50);
 			})
 		},
 		showHtml () {
@@ -127,6 +127,6 @@ export default {
 	font-family: "Microsoft YaHei";
 }
 body{
-	font-size: 16px;
+	font-size: 14px;
 }
 </style>
