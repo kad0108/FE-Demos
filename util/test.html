@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <style>
+  html, body{
+    width: 100%;
+    height: 100%;
+  }
+  #console{
+    margin-top: 1em;
+    background-color: black;
+    overflow-y: auto;
+    width: 100%;
+    height: calc(100% - 2em);
+    color: white;
+  }
+  select{
+    height: 2em;
+    width: 10em;
+  }
+  .target{
+    border: 1px solid transparent;
+    background-color: purple;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.2em;
+    box-shadow: 5px 5px 5px grey;
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+  <p>Select the click type before test and test all types pls :)</p>
+  <div style="margin: 1em 0;">
+    <select id="select">
+      <option value ="pls select">--pls select first--</option>
+      <option value ="short press">short press</option>
+      <option value="long press">long press</option>
+      <option value="long press and move out">long press and move out</option>
+    </select>
+  </div>
+  
+  <button type="button" class="target" id="btn">
+    <span>I'm here! click me and touch me!</span>
+  </button>
+  <ul id="console"></ul>
+  <script>
+  var EventUtil = {
+    addEvent: function(ele, eventName, listener){
+      if(ele.addEventListener){
+        ele.addEventListener(eventName, listener, false);		
+      }else if(ele.attachEvent){
+        ele.attachEvent("on" + eventName, listener);
+      }else{
+        ele["on" + eventName] = listener;
+      }
+    },
+    removeEvent: function(ele, eventName, listener){
+      if(ele.removeEventListener){
+        ele.removeEventListener(eventName, listener);		
+      }else if(ele.detachEvent){
+        ele.detachEvent("on" + eventName, listener);
+      }else{
+        ele["on" + eventName] = null;		
+      }
+    },
+    getEvent: function(e){
+      var evt = e || window.event;
+      return evt;
+    },
+    getTarget: function(e){
+      var e = this.getEvent(e);
+      var target = e.target || e.srcElement;
+      return target;
+    },
+    stopPropagation: function(e){
+      var e = this.getEvent(e);
+      if(e.stopPropagation) e.stopPropagation();
+      else e.cancelBubble = true;		
+    },
+    preventDefault: function(e){
+      var e = this.getEvent(e);
+      if(e.preventDefault) e.preventDefault();
+      else e.returnValue = false;//兼容firefox
+    }
+  }
+  function log(msg){
+    $('console').innerHTML += `<li>${msg}</li>`;
+  }
+  function $(ele){
+    return document.getElementById(ele);
+  }
+  EventUtil.addEvent($("select"), 'change', function(e){
+    log(EventUtil.getTarget(e).value + ':');
+  })
+  EventUtil.addEvent($('btn'), 'click', function(e){
+    var target = EventUtil.getTarget(e);
+    log('click');
+  })
+  EventUtil.addEvent($("btn"), "touchstart", function(e){
+    log('touchstart');
+  })
+  EventUtil.addEvent($("btn"), "touchmove", function(e){
+    log('touchmove');
+  })
+  EventUtil.addEvent($("btn"), "touchend", function(e){
+    log('touchend');
+  })
+  // EventUtil.addEvent($("btn"), "mousedown", function(e){
+  //   log('mousedown');
+  // })
+  // EventUtil.addEvent($("btn"), "mouseup", function(e){
+  //   log('mouseup');
+  // })
+  // EventUtil.addEvent($("btn"), "mousemove", function(e){
+  //   log('mousemove');
+  // })
+  </script>
+</body>
+</html>
