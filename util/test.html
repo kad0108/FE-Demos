@@ -99,7 +99,7 @@
     return document.getElementById(ele);
   }
   EventUtil.addEvent($("select"), 'change', function(e){
-    log(EventUtil.getTarget(e).value + ':');
+    log('----' + EventUtil.getTarget(e).value + '----');
   })
   EventUtil.addEvent($('btn'), 'click', function(e){
     var target = EventUtil.getTarget(e);
