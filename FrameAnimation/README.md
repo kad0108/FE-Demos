@@ -1,4 +1,4 @@
-### 参考慕课网教程，原生JS实现帧动画库 [demo访问这里](http://kad0108.github.io/Html5/FrameAnimation/demo/demo.html)
+### 参考慕课网教程，原生JS实现帧动画库 [demo访问这里](http://kad0108.github.io/FE-Demos/FrameAnimation/demo/demo.html)
 ### 学习到的知识点：
 * 常用帧动画方式及对比，CSS vs JS
 * 模块化，webpack，闭包（this的指向是由它所在函数调用的上下文决定的，而不是由它所在函数定义的上下文决定的）

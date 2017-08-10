@@ -1,4 +1,4 @@
-## CSS3实现Loading效果  [demo访问这里](http://kad0108.github.io/Html5/loading/)
+## CSS3实现Loading效果  [demo访问这里](http://kad0108.github.io/FE-Demos/loading/)
 
 ## 知识点：
 * 使用animation实现动画，通过对nth-child设置动画延时达到波动效果。

@@ -1,4 +1,4 @@
-# vue-tutorial  [demo](http://kad0108.github.io/Html5/vue-tutorial/dist/)
+# vue-tutorial  [demo](http://kad0108.github.io/FE-Demos/vue-tutorial/dist/)
 
 > A Vue.js project
 

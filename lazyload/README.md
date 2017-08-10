@@ -1,8 +1,8 @@
-## 懒加载原理 [demo](http://kad0108.github.io/Html5/lazyload/lazyload.html)
+## 懒加载原理 [demo](http://kad0108.github.io/FE-Demos/lazyload/lazyload.html)
 
 将页面中的img标签src指向一张小图片或者src为空，然后定义data-src属性指向真实的图片。当载入页面时，先把可视区域内的img标签的data-src属性值赋给src，然后监听滚动事件，把用户即将看到的图片加载。这样便实现了懒加载。
 
-## 函数节流 [demo](http://kad0108.github.io/Html5/lazyload/throttle.html)
+## 函数节流 [demo](http://kad0108.github.io/FE-Demos/lazyload/throttle.html)
 
 **函数节流，简单地讲，就是让一个函数无法在很短的时间间隔内连续调用，只有当上一次函数执行后过了你规定的时间间隔，才能进行下一次该函数的调用。通过定时器实现。**
 

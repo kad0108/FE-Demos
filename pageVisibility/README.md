@@ -18,8 +18,8 @@
 
 ## setInterval+PageVisibility == RequestAnimationFrame
 
-[Video自动暂停](http://kad0108.github.io/Html5/pageVisibility/video.html)
+[Video自动暂停](http://kad0108.github.io/FE-Demos/pageVisibility/video.html)
 
-[动态绘制](http://kad0108.github.io/Html5/pageVisibility/)
+[动态绘制](http://kad0108.github.io/FE-Demos/pageVisibility/)
 
-[requestAnimationFrame动态绘制](http://kad0108.github.io/Html5/pageVisibility/requestAnimationFrame.html)
+[requestAnimationFrame动态绘制](http://kad0108.github.io/FE-Demos/pageVisibility/requestAnimationFrame.html)

@@ -1,4 +1,4 @@
-### 轮播实现，不兼容ie浏览器，支持移动端 [demo访问这里](http://kad0108.github.io/Html5/carousel/)
+### 轮播实现，不兼容ie浏览器，支持移动端 [demo访问这里](http://kad0108.github.io/FE-Demos/carousel/)
 
 轮播图：几张图片轮流循环显示
 
